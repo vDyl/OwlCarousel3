@@ -1,0 +1,10 @@
+import '../src/js/owl.carousel.js';
+import '../src/js/owl.autorefresh.js';
+import '../src/js/owl.lazyload.js';
+import '../src/js/owl.autoheight.js';
+import '../src/js/owl.video.js';
+import '../src/js/owl.animate.js';
+import '../src/js/owl.autoplay.js';
+import '../src/js/owl.navigation.js';
+import '../src/js/owl.hash.js';
+import '../src/js/owl.support.js';

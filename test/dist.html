@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Owl Carousel 3 distribution tests</title>
+		<link rel="stylesheet" href="../node_modules/qunit/qunit/qunit.css" />
+		<script src="vendor/jquery-loader.js"></script>
+		<script src="../node_modules/qunit/qunit/qunit.js"></script>
+		<script>QUnit.config.autostart = false;</script>
+		<script src="legacy-qunit.js"></script>
+		<script src="../dist/owl.carousel.js"></script>
+		<script src="unit/core.js" defer></script>
+		<script src="unit/autoplay.js" defer></script>
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture">
+			<ul id="simple" class="owl-carousel">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</div>
+	</body>
+</html>
