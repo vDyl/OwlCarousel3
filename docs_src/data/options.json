@@ -24,6 +24,12 @@
     "desc":     "Center item. Works well with even an odd number of items."
   },
   {
+    "name":     "rewind",
+    "type":     "Boolean",
+    "Default":  "false",
+    "desc":     "Return to the beginning when the carousel reaches the last item."
+  },
+  {
     "name":     "mouseDrag",
     "type":     "Boolean",
     "Default":  "true",
@@ -78,6 +84,12 @@
     "desc":     "Start position or URL Hash string like '#id'."
   },
   {
+    "name":     "rtl",
+    "type":     "Boolean",
+    "Default":  "false",
+    "desc":     "Display the carousel from right to left."
+  },
+  {
     "name":     "URLhashListener",
     "type":     "Boolean",
     "Default":  "false",
@@ -90,21 +102,15 @@
     "desc":     "Show next/prev buttons."
   },
   {
-    "name":     "rewind",
-    "type":     "Boolean",
-    "Default":  "true",
-    "desc":     "Go backwards when the boundary has reached."
-  },
-  {
     "name":     "navText",
     "type":     "Array",
-    "Default":  "['next','prev']",
+    "Default":  "Previous and Next arrow markup",
     "desc":     "HTML allowed."
   },
-    {
+  {
     "name":     "navElement",
     "type":     "String",
-    "Default":  "div",
+    "Default":  "button type=\"button\" role=\"presentation\"",
     "desc":     "DOM element type for a single directional navigation link."
   },
   {
@@ -150,6 +156,24 @@
     "desc":     "Eagerly pre-loads images to the right (and left when loop is enabled) based on how many items you want to preload."
   },
   {
+    "name":     "autoRefresh",
+    "type":     "Boolean",
+    "Default":  "true",
+    "desc":     "Refresh the carousel when its visibility changes."
+  },
+  {
+    "name":     "autoRefreshInterval",
+    "type":     "Number",
+    "Default":  "500",
+    "desc":     "Visibility check interval in milliseconds."
+  },
+  {
+    "name":     "autoHeight",
+    "type":     "Boolean",
+    "Default":  "false",
+    "desc":     "Adjust the stage height to the tallest visible item."
+  },
+  {
     "name":     "autoplay",
     "type":     "Boolean",
     "Default":  "false",
@@ -175,8 +199,8 @@
   },
   {
     "name":     "fluidSpeed",
-    "type":     "Boolean",
-    "Default":  "Number",
+    "type":     "Number/Boolean",
+    "Default":  "false",
     "desc":     "Speed Calculate. More info to come.."
   },
   {
@@ -193,8 +217,8 @@
   },
   {
     "name":     "dotsSpeed",
-    "type":     "Boolean",
-    "Default":  "Number/Boolean",
+    "type":     "Number/Boolean",
+    "Default":  "false",
     "desc":     "Pagination speed."
   },
   {
@@ -202,12 +226,6 @@
     "type":     "Number/Boolean",
     "Default":  "false",
     "desc":     "Drag end speed."
-  },
-  {
-    "name":     "callbacks",
-    "type":     "Boolean",
-    "Default":  "true",
-    "desc":     "Enable callback events."
   },
   {
     "name":     "responsive",
@@ -231,7 +249,7 @@
     "name":     "video",
     "type":     "Boolean",
     "Default":  "false",
-    "desc":     "Enable fetching YouTube/Vimeo/Vzaar videos."
+    "desc":     "Enable fetching YouTube and Vimeo videos."
   },
   {
     "name":     "videoHeight",

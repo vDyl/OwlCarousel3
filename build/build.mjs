@@ -5,12 +5,13 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import postcss from 'postcss';
 import * as sass from 'sass';
+import { buildDocs } from './docs.mjs';
 
 const root = process.cwd();
 const dist = resolve(root, 'dist');
 const assets = resolve(dist, 'assets');
-const docsDist = resolve(root, 'docs', 'assets', 'owlcarousel');
-const banner = '/*! Owl Carousel v3.0.1 | MIT License */\n';
+const packageData = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
+const banner = `/*! Owl Carousel v${packageData.version} | MIT License */\n`;
 const browserTargets = [ 'last 2 versions', 'ie 11' ];
 const stylesheets = [
 	[ 'src/scss/owl.carousel.scss', 'owl.carousel.css' ],
@@ -58,5 +59,4 @@ await cp(resolve(root, 'src/img'), assets, { recursive: true });
 await cp(resolve(root, 'LICENSE'), resolve(dist, 'LICENSE'));
 await cp(resolve(root, 'README.md'), resolve(dist, 'README.md'));
 
-await rm(docsDist, { recursive: true, force: true });
-await cp(dist, docsDist, { recursive: true });
+await buildDocs(root, dist);

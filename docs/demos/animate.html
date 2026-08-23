@@ -1,246 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+<!-- head -->
+<meta charset="utf-8">
+<meta name="msapplication-tap-highlight" content="no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- head -->
-    <meta charset="utf-8">
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Animate carousel">
-    <title>
-      Animate Demo | Owl Carousel 3 | 3.0.1
-    </title>
+<meta name="description" content="Animate carousel">
 
-    <!-- Stylesheets -->
-    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,400italic,300italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../assets/css/docs.theme.min.css">
+<title>
+  Animate Demo | Owl Carousel 3 | 3.0.2
+</title>
 
-    <!-- Owl Stylesheets -->
-    <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- Stylesheets -->
+<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,400italic,300italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/docs.theme.min.css">
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+<!-- Owl Stylesheets -->
+<link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
 
-    <!-- Yeah i know js should not be in header. Its required for demos.-->
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
 
-    <!-- javascript -->
-    <script src="../assets/vendors/jquery.min.js"></script>
-    <script src="../assets/owlcarousel/owl.carousel.js"></script>
-  </head>
-  <body>
+<!-- Yeah i know js should not be in header. Its required for demos.-->
 
-    <!-- header -->
-    <header class="header">
-  <div class="row">
-    <div class="large-12 columns">
-      <h3 class="brand">Owl Carousel 3</h3>
-    </div>
-  </div>
+<!-- javascript -->
+<script src="../assets/vendors/jquery.min.js"></script>
+<script src="../assets/owlcarousel/owl.carousel.js"></script>
+
+
+
+</head>
+<body>
+<!-- header -->
+<header class="header">
+	<div class="row">
+		<div class="small-8 medium-4 columns">
+			<h3 class="brand"><a href="../index.html">Owl Carousel 3</a></h3>
+		</div>
+		<div class="small-4 medium-8 columns">
+			<a id="toggle-nav" class="right" href="#navigation" aria-label="Toggle navigation" aria-controls="navigation" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</a>
+			<nav id="navigation" class="nav-bar" aria-label="Main navigation">
+				<ul>
+					<li><a href="../index.html">Home</a></li>
+					<li><a href="../docs/started-welcome.html">Docs</a></li>
+					<li class="active"><a href="../demos/demos.html">Demos</a></li>
+					<li><a href="https://github.com/vDyl/OwlCarousel3">GitHub</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 </header>
 
-    <!-- title -->
-    <section class="title">
-      <div class="row">
-        <div class="large-12 columns">
-          <h1>Animate</h1>
-        </div>
-      </div>
-    </section>
+<!-- title -->
+<section class="title">
+	<div class="row">
+		<div class="large-12 columns">
+			<h1>Animate</h1>
+		</div>
+	</div>
+</section>
 
-    <!--  Demos -->
-    <section id="demos">
-      <div class="row">
-        <div class="large-12 columns">
-          <div class="fadeOut owl-carousel owl-theme">
-            <div class="item">
-              <h4>1</h4>
-            </div>
-            <div class="item">
-              <h4>2</h4>
-            </div>
-            <div class="item">
-              <h4>3</h4>
-            </div>
-            <div class="item">
-              <h4>4</h4>
-            </div>
-            <div class="item">
-              <h4>5</h4>
-            </div>
-            <div class="item">
-              <h4>6</h4>
-            </div>
-            <div class="item">
-              <h4>7</h4>
-            </div>
-            <div class="item">
-              <h4>8</h4>
-            </div>
-            <div class="item">
-              <h4>9</h4>
-            </div>
-            <div class="item">
-              <h4>10</h4>
-            </div>
-            <div class="item">
-              <h4>11</h4>
-            </div>
-            <div class="item">
-              <h4>12</h4>
-            </div>
-          </div>
-          <h3 id="overview">Overview</h3>
-          <p>To get fade out effect just set:</p>
-          <pre><code>animateOut: &#39;fadeOut&#39;</code></pre>
-          <blockquote>
-            <p><code>fadeOut</code> value is the only built-in CSS animate style. However there are tons of additional CSS animations that you can use in Owl. Simply download
-              <a href="https://daneden.github.io/animate.css/">animate.css</a>  library and you are ready to extend Owl with new fancy transitions.</p>
-          </blockquote>
-          <h3 id="important">Important</h3>
-          <p>Animate functions work only with one item and only in browsers that support perspective property.</p>
-          <h3 id="how-to-use-additional-animation-from-animate-css-library">How to use additional animation from <code>animate.css</code> library</h3>
-          <ol>
-            <li> <a href="https://daneden.github.io/animate.css/">Download animate.css</a>  </li>
-            <li>Include animate.css into header.</li>
-            <li>Set <code>animateOut</code> and <code>animateIn</code> options with the style names you picked.</li>
-          </ol>
-          <pre><code>$(&#39;.custom1&#39;).owlCarousel({
-    animateOut: &#39;slideOutDown&#39;,
-    animateIn: &#39;flipInX&#39;,
-    items:1,
-    margin:30,
-    stagePadding:30,
-    smartSpeed:450
-});</code></pre>
-          <p>Example with slideOutDown and flipInX</p>
-          <div class="custom1 owl-carousel owl-theme">
-            <div class="item">
-              <h4>1</h4>
-            </div>
-            <div class="item">
-              <h4>2</h4>
-            </div>
-            <div class="item">
-              <h4>3</h4>
-            </div>
-            <div class="item">
-              <h4>4</h4>
-            </div>
-            <div class="item">
-              <h4>5</h4>
-            </div>
-            <div class="item">
-              <h4>6</h4>
-            </div>
-            <div class="item">
-              <h4>7</h4>
-            </div>
-            <div class="item">
-              <h4>8</h4>
-            </div>
-            <div class="item">
-              <h4>9</h4>
-            </div>
-            <div class="item">
-              <h4>10</h4>
-            </div>
-            <div class="item">
-              <h4>11</h4>
-            </div>
-            <div class="item">
-              <h4>12</h4>
-            </div>
-          </div>
-          <h3 id="how-does-it-work-">How does it work?</h3>
-          <p>Before animation starts three classes are added to each item:</p>
-          <ul>
-            <li>.animated - added on both In and Out item - ive included this class from Animate.css into Owl core CSS file.</li>
-            <li>.owl-animated-out - only on Out item - use it to change z-index</li>
-            <li>.owl-animated-in - only on In item - use it to change z-index</li>
-            <li>.classNameOut - only on Out item - this is your custom animation class from options.</li>
-            <li>.classNameIn - only on In item - this is your custom animation class from options.</li>
-          </ul>
-          <p>Part of owl.carousel.css:</p>
-          <pre><code class="language-css"><span class="comment">/* Feel free to change duration  */</span> 
-<span class="class">.animated</span>  <span class="rules">{
-  <span class="rule"><span class="attribute">-webkit-animation-duration</span> :<span class="value"> <span class="number">1000</span> ms</span> </span> ;
-  <span class="rule"><span class="attribute">animation-duration</span> :<span class="value"> <span class="number">1000</span> ms</span> </span> ;
-  <span class="rule"><span class="attribute">-webkit-animation-fill-mode</span> :<span class="value"> both</span> </span> ;
-  <span class="rule"><span class="attribute">animation-fill-mode</span> :<span class="value"> both</span> </span> ;
-<span class="rule">}</span> </span> 
-<span class="comment">/* .owl-animated-out - only for current item */</span> 
-<span class="comment">/* This is very important class. Use z-index if you want move Out item above In item */</span> 
-<span class="class">.owl-animated-out</span> <span class="rules">{
-  <span class="rule"><span class="attribute">z-index</span> :<span class="value"> <span class="number">1</span> 
-</span> </span> </span> }
-<span class="comment">/* .owl-animated-in - only for upcoming item
-/* This is very important class. Use z-index if you want move In item above Out item */</span> 
-<span class="class">.owl-animated-in</span> <span class="rules">{
-  <span class="rule"><span class="attribute">z-index</span> :<span class="value"> <span class="number">0</span> 
-</span> </span> </span> }
-<span class="comment">/* .fadeOut is style taken from Animation.css and this is how it looks in owl.carousel.css:  */</span> 
-<span class="class">.fadeOut</span>  <span class="rules">{
-  <span class="rule"><span class="attribute">-webkit-animation-name</span> :<span class="value"> fadeOut</span> </span> ;
-  <span class="rule"><span class="attribute">animation-name</span> :<span class="value"> fadeOut</span> </span> ;
-<span class="rule">}</span> </span> 
-<span class="at_rule">@<span class="keyword">-webkit-keyframes</span>  fadeOut </span> {
-  0% <span class="rules">{
-    <span class="rule"><span class="attribute">opacity</span> :<span class="value"> <span class="number">1</span> </span> </span> ;
-  <span class="rule">}</span> </span> 
-  100% <span class="rules">{
-    <span class="rule"><span class="attribute">opacity</span> :<span class="value"> <span class="number">0</span> </span> </span> ;
-  <span class="rule">}</span> </span> 
+<!--  Demos -->
+<section id="demos">
+	<div class="row">
+		<div class="large-12 columns">
+
+<div class="fadeOut owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+	<div class="item"><h4>7</h4></div>
+	<div class="item"><h4>8</h4></div>
+	<div class="item"><h4>9</h4></div>
+	<div class="item"><h4>10</h4></div>
+	<div class="item"><h4>11</h4></div>
+	<div class="item"><h4>12</h4></div>
+</div>
+
+<h3>Overview</h3>
+<p>To get fade out effect just set:</p>
+<pre><code>animateOut: &#39;fadeOut&#39;
+</code></pre>
+<blockquote>
+<p><code>fadeOut</code> is the only animation included by Owl Carousel. Add your own CSS animations or use <a href="https://animate.style/">Animate.css</a> for more effects.</p>
+</blockquote>
+<h3>Important</h3>
+<p>Animate functions work only with one item and only in browsers that support perspective property.</p>
+<h3>How to use additional animation from <code>animate.css</code> library</h3>
+<ol>
+<li><a href="https://animate.style/">Download Animate.css</a></li>
+<li>Include animate.css into header.</li>
+<li>Set <code>animateOut</code> and <code>animateIn</code> options with the style names you picked.</li>
+</ol>
+<pre><code>$(&#39;.custom1&#39;).owlCarousel({
+	animateOut: &#39;slideOutDown&#39;,
+	animateIn: &#39;flipInX&#39;,
+	items:1,
+	margin:30,
+	stagePadding:30,
+	smartSpeed:450
+});
+</code></pre>
+<p>Example with slideOutDown and flipInX</p>
+
+<div class="custom1 owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+	<div class="item"><h4>7</h4></div>
+	<div class="item"><h4>8</h4></div>
+	<div class="item"><h4>9</h4></div>
+	<div class="item"><h4>10</h4></div>
+	<div class="item"><h4>11</h4></div>
+	<div class="item"><h4>12</h4></div>
+</div>
+
+<h3>How does it work?</h3>
+<p>Before animation starts three classes are added to each item:</p>
+<ul>
+<li>.animated - added on both In and Out item - ive included this class from Animate.css into Owl core CSS file.</li>
+<li>.owl-animated-out - only on Out item - use it to change z-index</li>
+<li>.owl-animated-in - only on In item - use it to change z-index</li>
+<li>.classNameOut - only on Out item - this is your custom animation class from options.</li>
+<li>.classNameIn - only on In item - this is your custom animation class from options.</li>
+</ul>
+<p>Part of owl.carousel.css:</p>
+<pre><code class="language-css">/* Feel free to change duration  */
+
+.animated {
+  -webkit-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
-<span class="at_rule">@<span class="keyword">keyframes</span>  fadeOut </span> {
-  0% <span class="rules">{
-    <span class="rule"><span class="attribute">opacity</span> :<span class="value"> <span class="number">1</span> </span> </span> ;
-  <span class="rule">}</span> </span> 
-  100% <span class="rules">{
-    <span class="rule"><span class="attribute">opacity</span> :<span class="value"> <span class="number">0</span> </span> </span> ;
-  <span class="rule">}</span> </span> 
-}</code></pre>
-          <link rel="stylesheet" href="../assets/css/animate.css">
-          <script>
-            jQuery(document).ready(function($) {
-              $('.fadeOut').owlCarousel({
-                items: 1,
-                animateOut: 'fadeOut',
-                loop: true,
-                margin: 10,
-              });
-              $('.custom1').owlCarousel({
-                animateOut: 'slideOutDown',
-                animateIn: 'flipInX',
-                items: 1,
-                margin: 30,
-                stagePadding: 30,
-                smartSpeed: 450
-              });
-            });
-          </script>
-        </div>
-      </div>
-    </section>
 
-    <!-- footer -->
-    <footer class="footer">
-  <div class="row">
-    <div class="large-12 columns">
-      <h5><span>Owl Carousel 3</span></h5>
-    </div>
-  </div>
+/* .owl-animated-out - only for current item */
+/* This is very important class. Use z-index if you want move Out item above In item */
+
+.owl-animated-out{
+  z-index: 1
+}
+
+/* .owl-animated-in - only for upcoming item
+/* This is very important class. Use z-index if you want move In item above Out item */
+
+.owl-animated-in{
+  z-index: 0
+}
+
+/* .fadeOut is style taken from Animation.css and this is how it looks in owl.carousel.css:  */
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</code></pre>
+
+<link rel="stylesheet" href="../assets/css/animate.css">
+<script>
+jQuery(document).ready(function($) {
+
+	$('.fadeOut').owlCarousel({
+		items:1,
+		animateOut:'fadeOut',
+		loop:true,
+		margin:10,
+	});
+
+	$('.custom1').owlCarousel({
+		animateOut: 'slideOutDown',
+		animateIn: 'flipInX',
+		items:1,
+		margin:30,
+		stagePadding:30,
+		smartSpeed:450
+	});
+
+});
+</script>
+		</div>
+	</div>
+</section>
+
+<!-- footer -->
+<footer class="footer">
+	<div class="row">
+		<div class="large-12 columns">
+			<h5>
+				<span>Owl Carousel 3</span>
+			</h5>
+		</div>
+	</div>
 </footer>
 
-    <!-- vendors -->
-    <script src="../assets/vendors/highlight.js"></script>
-    <script src="../assets/js/app.js"></script>
-  </body>
+	<!-- vendors -->
+<script src="../assets/vendors/highlight.js"></script>
+<script src="../assets/js/app.js"></script>
+
+</body>
 </html>

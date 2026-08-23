@@ -21,8 +21,11 @@ npm test
    step completes without legacy Sass `@import` deprecation warnings.
 3. Prefixes CSS with PostCSS and Autoprefixer, targeting the browsers in
    `.browserslistrc`, then produces cssnano-minified variants.
-4. Copies image, licence, and README assets, then synchronizes the built
-   distribution into `docs/assets/owlcarousel/`.
+4. Copies image, licence, and README assets.
+5. Recreates `docs/` from the Handlebars pages, layouts, partials, JSON data,
+   and static assets in `docs_src/`, then includes the built distribution in
+   `docs/assets/owlcarousel/`. Page titles and version labels come directly
+   from `package.json`.
 
 The source files are classic browser scripts rather than ES modules. The build
 entry file exists solely to preserve Owl Carousel's required evaluation order.
@@ -50,11 +53,11 @@ be loaded directly by custom themes.
 Playwright serves the repository locally and runs the existing QUnit tests
 against both the source files and `dist/owl.carousel.js`. Each target is tested
 with locally pinned jQuery 1.8.3, 2.2.4, 3.7.1, and 4.0.0, both with and without
-the matching jQuery Migrate release.
+the matching jQuery Migrate release. It also loads every generated documentation
+page and fails on missing local assets or browser errors.
 
 ## Removed legacy tooling
 
-Grunt, Bower, Node Sass, PhantomJS, Blanket, JSCS, and the old Assemble-based
-documentation build are not part of the release build. The committed static
-documentation remains available; only its built Owl Carousel assets are
-synchronized by `npm run build`.
+Grunt, Bower, Node Sass, PhantomJS, Blanket, JSCS, and Assemble are not part of
+the release build. The documentation now uses a small Node-based generator with
+Handlebars, Marked, and YAML instead.

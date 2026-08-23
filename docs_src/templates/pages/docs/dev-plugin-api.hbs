@@ -19,37 +19,43 @@ Plugin scaffolding:
 ```
 /**
  * Plugin Name
- * @since 2.0.0
+ * @since 3.0.0
  */
 
-;(function ( $, window, document, undefined ) {
+;(function($, window, document, undefined) {
+	'use strict';
 
-	PluginName = function(scope){
-		this.owl = scope;
-		this.owl._options = $.extend({}, PluginName.Defaults, this.owl.options);
+	var PluginName = function(carousel) {
+		this._core = carousel;
+		this._handlers = {
+			'initialized.owl.carousel': $.proxy(function(event) {
+				if (event.namespace) {
+					// Initialize the plugin here.
+				}
+			}, this)
+		};
 
-		//link callback events with owl carousel here
-	}
+		this._core.options = $.extend({}, PluginName.Defaults, this._core.options);
+		this._core.$element.on(this._handlers);
+	};
 
 	PluginName.Defaults = {
 		optionName: 'value',
 		optionName2: 'value'
-	}
-
-	//methods:
-	PluginName.prototype.method = function(){
-
-	}
-
-	//destroy:
-	AutoHeight.prototype.destroy = function(){
-		//events here
 	};
 
-	$.fn.owlCarousel.Constructor.Plugins['pluginName'] = PluginName;
+	PluginName.prototype.method = function() {};
 
-})( window.Zepto || window.jQuery, window,  document );
+	//destroy:
+	PluginName.prototype.destroy = function() {
+		for (var event in this._handlers) {
+			this._core.$element.off(event, this._handlers[event]);
+		}
+	};
+
+	$.fn.owlCarousel.Constructor.Plugins.PluginName = PluginName;
+
+})(window.jQuery, window, document);
 ```
 
 {{/markdown }}
-

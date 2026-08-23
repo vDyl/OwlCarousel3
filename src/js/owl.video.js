@@ -1,6 +1,6 @@
 /**
  * Video Plugin
- * @version 3.0.1
+ * @version 3.0.2
  * @license The MIT License (MIT)
  */
 ;(function($, window, document, undefined) {
@@ -95,22 +95,14 @@
 	};
 
 	/**
-	 * Gets the video ID and the type (YouTube/Vimeo/vzaar only).
+	 * Gets the video ID and the type (YouTube/Vimeo only).
 	 * @protected
 	 * @param {jQuery} target - The target containing the video data.
 	 * @param {jQuery} item - The item containing the video.
 	 */
 	Video.prototype.fetch = function(target, item) {
-			var type = (function() {
-					if (target.attr('data-vimeo-id')) {
-						return 'vimeo';
-					} else if (target.attr('data-vzaar-id')) {
-						return 'vzaar'
-					} else {
-						return 'youtube';
-					}
-				})(),
-				id = target.attr('data-vimeo-id') || target.attr('data-youtube-id') || target.attr('data-vzaar-id'),
+			var type = target.attr('data-vimeo-id') ? 'vimeo' : 'youtube',
+				id = target.attr('data-vimeo-id') || target.attr('data-youtube-id'),
 				width = target.attr('data-width') || this._core.settings.videoWidth,
 				height = target.attr('data-height') || this._core.settings.videoHeight,
 				url = target.attr('href');
@@ -124,19 +116,14 @@
 					https://vimeo.com/:id
 					https://vimeo.com/channels/:channel/:id
 					https://vimeo.com/groups/:group/videos/:id
-					https://app.vzaar.com/videos/:id
-
-					Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
 			*/
 
-			id = url.match(/(http:|https:|)\/\/(player.|www.|app.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com|be\-nocookie\.com)|vzaar\.com)\/(video\/|videos\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
+			id = url.match(/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com|be\-nocookie\.com))\/(video\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
 
 			if (id[3].indexOf('youtu') > -1) {
 				type = 'youtube';
 			} else if (id[3].indexOf('vimeo') > -1) {
 				type = 'vimeo';
-			} else if (id[3].indexOf('vzaar') > -1) {
-				type = 'vzaar';
 			} else {
 				throw new Error('Video URL not supported.');
 			}
@@ -148,6 +135,7 @@
 		this._videos[url] = {
 			type: type,
 			id: id,
+			url: url,
 			width: width,
 			height: height
 		};
@@ -178,9 +166,8 @@
 
 				if (settings.lazyLoad) {
 					tnLink = $('<div></div>',{
-						"class": 'owl-video-tn ' + lazyClass,
-						"srcType": path
-					});
+						"class": 'owl-video-tn ' + lazyClass
+					}).attr(srcType, path);
 				} else {
 					tnLink = $( '<div></div>', {
 						"class": "owl-video-tn",
@@ -210,28 +197,23 @@
 		}
 
 		if (video.type === 'youtube') {
-			path = "//img.youtube.com/vi/" + video.id + "/hqdefault.jpg";
+			path = "https://img.youtube.com/vi/" + video.id + "/hqdefault.jpg";
 			create(path);
 		} else if (video.type === 'vimeo') {
 			$.ajax({
 				type: 'GET',
-				url: '//vimeo.com/api/v2/video/' + video.id + '.json',
+				url: 'https://vimeo.com/api/oembed.json',
+				data: {
+					url: video.url
+				},
 				jsonp: 'callback',
 				dataType: 'jsonp',
 				success: function(data) {
-					path = data[0].thumbnail_large;
+					path = data.thumbnail_url;
 					create(path);
-				}
-			});
-		} else if (video.type === 'vzaar') {
-			$.ajax({
-				type: 'GET',
-				url: '//vzaar.com/api/videos/' + video.id + '.json',
-				jsonp: 'callback',
-				dataType: 'jsonp',
-				success: function(data) {
-					path = data.framegrab_url;
-					create(path);
+				},
+				error: function() {
+					create('');
 				}
 			});
 		}
@@ -279,11 +261,9 @@
 		html.attr( 'height', height );
 		html.attr( 'width', width );
 		if (video.type === 'youtube') {
-			html.attr( 'src', '//www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0&v=' + video.id );
+			html.attr( 'src', 'https://www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0&v=' + video.id );
 		} else if (video.type === 'vimeo') {
-			html.attr( 'src', '//player.vimeo.com/video/' + video.id + '?autoplay=1' );
-		} else if (video.type === 'vzaar') {
-			html.attr( 'src', '//view.vzaar.com/' + video.id + '/player?autoplay=true' );
+			html.attr( 'src', 'https://player.vimeo.com/video/' + video.id + '?autoplay=1' );
 		}
 
 		iframe = $(html).wrap( '<div class="owl-video-frame"></div>' ).insertAfter(item.find('.owl-video'));

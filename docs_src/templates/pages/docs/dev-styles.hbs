@@ -13,49 +13,45 @@ tags:
 ## Using Sass
 > Owl uses Dart Sass to build CSS for all main modules and themes. If you don’t know Sass, have a look at their [website](https://sass-lang.com/).
 
-To build the CSS from its Sass source, it’s required to have:
-
-* [Node.js](https://nodejs.org/)
+Building from source requires [Node.js](https://nodejs.org/) 20.19 or later and npm.
 
 Run `npm run build` to compile the SCSS files, prefix the generated CSS, and create minified variants.
 
 ### SCSS Files included
 
-Source files can be found on [Github Project]( {{ pkg.homepage }})
+Source files can be found in the [GitHub project]({{ pkg.homepage }}).
 
-```
+```no-highlight
 src/
 └── scss/
-    ├── _mixins.scss
+    ├── _animate.scss
+    ├── _autoheight.scss
+    ├── _core.scss
+    ├── _lazyload.scss
     ├── _theme.scss
+    ├── _theme.default.scss
+    ├── _theme.green.scss
+    ├── _video.scss
     ├── owl.carousel.scss
-    ├── owl.animate.scss
-    ├── owl.autoheight.scss
-    ├── owl.lazyload.scss
-    ├── owl.video.scss
     ├── owl.theme.default.scss
     └── owl.theme.green.scss
 ```
 
-### _mixins.scss
+### Partial modules
 
-_mixins contain basic snippets generators for CSS3 cross-browser styles.
+Files beginning with `_` are Sass modules used by the three public entry points. `_core.scss` contains the carousel layout, while `_animate.scss`, `_autoheight.scss`, `_lazyload.scss`, and `_video.scss` contain plugin styles.
 
 ### _theme.scss
 
-Scss structure for theme. Use owl.carousel.default.scss to change variables and generate new styles.
+Shared structure for the default and green navigation themes. Configure `_theme.default.scss` or `_theme.green.scss` with Sass `@use` when creating a custom theme.
 
 ### owl.carousel.scss
 
-Core file to handle basic styles and override some unnecessary browsers behaviors. You shouldn’t change this file unless you have to.
-
-### owl.[pluginname].scss
-
-Styles for modules.
+Public entry point that combines the core and plugin style modules.
 
 ### owl.theme.*.scss
 
-Theme files for dots and navigations buttons. Use `owl.theme.default.scss` to upgrade to your own styles or create a new theme.
+Generated theme entry points for navigation buttons and dots. For custom Sass configuration and examples, see [BUILDING.md](https://github.com/vDyl/OwlCarousel3/blob/main/BUILDING.md).
 
 
 {{/markdown }}

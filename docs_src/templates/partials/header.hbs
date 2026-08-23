@@ -1,7 +1,20 @@
 <header class="header">
 	<div class="row">
-		<div class="large-12 columns">
-			<h3 class="brand">Owl Carousel 3</h3>
+		<div class="small-8 medium-4 columns">
+			<h3 class="brand"><a href="{{root}}/index.html">Owl Carousel 3</a></h3>
+		</div>
+		<div class="small-4 medium-8 columns">
+			<a id="toggle-nav" class="right" href="#navigation" aria-label="Toggle navigation" aria-controls="navigation" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</a>
+			<nav id="navigation" class="nav-bar" aria-label="Main navigation">
+				<ul>
+					<li{{#is section "."}} class="active"{{/is}}><a href="{{root}}/index.html">Home</a></li>
+					<li{{#is section "docs"}} class="active"{{/is}}><a href="{{root}}/docs/started-welcome.html">Docs</a></li>
+					<li{{#is section "demos"}} class="active"{{/is}}><a href="{{root}}/demos/demos.html">Demos</a></li>
+					<li><a href="https://github.com/vDyl/OwlCarousel3">GitHub</a></li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 </header>

@@ -1,6 +1,6 @@
 /**
  * Navigation Plugin
- * @version 3.0.1
+ * @version 3.0.2
  * @license The MIT License (MIT)
  */
 ;(function($, window, document, undefined) {

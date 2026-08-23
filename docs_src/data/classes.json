@@ -42,6 +42,12 @@
     "desc":     "Stage class."
   },
   {
+    "name":     "itemClass",
+    "type":     "String",
+    "Default":  "owl-item",
+    "desc":     "Class applied to each generated carousel item."
+  },
+  {
     "name":     "stageOuterClass",
     "type":     "String",
     "Default":  "owl-stage-outer",
@@ -79,8 +85,8 @@
   },
   {
     "name":     "responsiveClass",
-    "type":     "String|Boolean",
-    "Default":  "false",
+    "type":     "String",
+    "Default":  "owl-responsive",
     "desc":     "Optional helper class. Add '<responsiveClass>-<breakpoint>' class to main element. Can be used to stylize content on given breakpoint."
   }
 ]

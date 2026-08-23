@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	// Keep plain-text file trees in one code block without syntax coloring.
+	$('code.language-no-highlight').addClass('hljs');
 
 	// responsive nav
 	var responsiveNav = $('#toggle-nav');
@@ -6,8 +8,8 @@ $(document).ready(function(){
 
 	responsiveNav.on('click',function(e){
 		e.preventDefault();
-		console.log(navBar);
-		navBar.toggleClass('active')
+		navBar.toggleClass('active');
+		responsiveNav.attr('aria-expanded', navBar.hasClass('active'));
 	});
 
 	// pseudo active

@@ -13,6 +13,28 @@ tags:
 ## Installation
 ------
 
+### npm
+
+Install Owl Carousel 3 in an npm project:
+
+```
+npm install owlcarousel3
+```
+
+The package declares jQuery `>=1.8.3 <5` as a peer dependency. npm 7 and newer install a compatible jQuery version automatically when your project does not already provide one.
+
+### CDN
+
+Use versioned jsDelivr URLs when loading the prebuilt files without npm:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@{{ pkg.version }}/dist/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@{{ pkg.version }}/dist/assets/owl.theme.default.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/owlcarousel3@{{ pkg.version }}/dist/owl.carousel.min.js"></script>
+```
+
 ### Include CSS
 First, include two CSS files into your HTML head:
 ```
@@ -23,12 +45,12 @@ First, include two CSS files into your HTML head:
 
 
 Second `owl.theme.default.css` file is optional and feel free to edit it. However, it is required if you'd like the default nav controls like dots or next buttons.
-Inside the source package you can also find [SCSS](http://sass-lang.com/) files for easy generation of your own themes.
+The npm package also contains the [SCSS](https://sass-lang.com/) source for custom builds and themes.
 
 
 ### Include JS
 
-Yep, include jQuery and `owl.carousel.min.js` into the footer.
+When using local files, include jQuery followed by `owl.carousel.min.js` near the end of the page.
 
 ```
 <script src="jquery.min.js"></script>

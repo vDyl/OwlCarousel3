@@ -1,33 +1,33 @@
 [
   {
     "title": "Fully Customisable",
-    "subtitle": "Over 60 options. Easy for novice users and even more powerful for advanced developers.",
+    "subtitle": "Flexible options for layouts, navigation, animation, media, events, and custom integrations.",
     "image": "feature-options.png"
   },
   {
     "title": "Touch and Drag Support",
-    "subtitle": "Designed specially to boost mobile browsing experience. Mouse drag works great on desktop too!",
+    "subtitle": "Touch dragging for mobile interfaces and mouse dragging for desktop browsers.",
     "image": "feature-drag.png"
   },
   {
     "title": "Fully Responsive",
-    "subtitle": "Almost all options are responsive and include very intuitive breakpoints settings.",
+    "subtitle": "Breakpoint-based settings adapt item counts and carousel behavior to the available width.",
     "image": "feature-responsive.png"
   },
   {
     "title": "Modern Browsers",
-    "subtitle": "Owl uses hardware acceleration with CSS3 Translate3d transitions. Its fast and works like a charm! ",
+    "subtitle": "Hardware-accelerated CSS transitions with prebuilt JavaScript and stylesheets.",
     "image": "feature-modern.png"
   },
   {
-    "title": "Zombie Browsers",
-    "subtitle": "CSS2 fallback supported for older browser.",
+    "title": "jQuery Compatibility",
+    "subtitle": "Tested with jQuery 1.8.3, 2.2.4, 3.7.1, and 4.0.0, with and without jQuery Migrate.",
     "image": "feature-zombie.png"
   }
   ,
   {
     "title": "Modules and Plugins",
-    "subtitle": "Owl Carousel supports plugin modular structure. Therefore, you can detach plugins that you won't use on your project or create new ones that fit your needs",
+    "subtitle": "Use the included plugins or create custom plugins through Owl Carousel's modular architecture.",
     "image": "feature-module.png"
   }
 ]

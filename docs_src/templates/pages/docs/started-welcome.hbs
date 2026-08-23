@@ -15,52 +15,34 @@ tags:
 
 > No matter if you are a beginner or an advanced user, starting with Owl is easy.
 
-### New Features
+Owl Carousel 3 is a community-maintained continuation of the familiar touch-enabled jQuery carousel. It preserves the established plugin API, events, markup, and CSS classes while adding jQuery 4 support and a modern build and test setup.
 
-* Infinity Loop
-* Center item
-* Smart Speed
-* Stage Padding
-* Item Margin
-* Ability to make almost all options responsive
-* Various Widths
-* Callback Events
-* RTL
-* YouTube/Vimeo/vzaar support (fetching thumbnails as well)
-* Anchors navigation
-* Merged Items
-* and more...
+### Features
+
+* Responsive layouts, looping, centering, stage padding, and merged items
+* Mouse, touch, RTL, URL hash, autoplay, and callback support
+* Lazy loading, auto height, CSS animations, and YouTube/Vimeo video support
+* Navigation buttons and dots with customizable markup and containers
 
 ### Compatibility
 
-Owl Carousel 3.x.x is not compatibile with previous version 1.x.x. The idea stays the same and it has a lot in common with Owl1 but the core code was re-written from scratch and I’m very proud with all the new features.
+Owl Carousel 3 supports jQuery `>=1.8.3 <5`. The automated browser matrix covers jQuery 1.8.3, 2.2.4, 3.7.1, and 4.0.0, both with and without the matching jQuery Migrate version.
 
-Owl Carousel has been tested in following browsers/devices:
-
-* Chrome
-* Firefox
-* Opera
-* IE11
-* iPad Safari
-* iPod4 Safari
-* Nexus 7 Chrome
-* Galaxy S4
-* Nokia 8s Windows8
+Version 3 keeps the browser-facing Owl Carousel 2 API compatible. If you compile custom Sass themes or upgrade an existing project, read the [jQuery 4 and upgrade guidance](https://github.com/vDyl/OwlCarousel3/blob/main/UPGRADEJ4.md).
 
 
 ### Library
 
-Download a version that suits your needs:
+Install the published package with `npm install owlcarousel3`, or download the automatic source archive from the [GitHub releases page](https://github.com/vDyl/OwlCarousel3/releases).
 
-* [Owl Carousel - {{ pkg.version }}](# pkg.version }}.zip) - Distributed version - compiled and minified. Javascript, images and CSS included.
-* [Owl Carousel Source - {{ pkg.version }}]({{ app.download }}) - Source files and static documentation, built with npm scripts.
+Prebuilt CSS and JavaScript are available in `dist/`; users do not need to run the build themselves.
 
 ### Files included
 
 Distributed version structure:
 
-```
-owlcarousel/
+```no-highlight
+dist/
 ├── assets/
 │   ├── owl.carousel.css
 │   ├── owl.carousel.min.css
@@ -72,14 +54,13 @@ owlcarousel/
 │
 ├── owl.carousel.js
 ├── owl.carousel.min.js
-├── LICENSE-MIT
+├── LICENSE
 └── README.md
 ```
 
-### Dependecies
+### Dependency
 
-Get the latest [jQuery](https://jquery.com/) or [Zepto](http://zeptojs.com/) library.
-Minimum compatible jQuery version is 1.8.3. jQuery 3.7.1 and 4.x are also supported.
+Load a compatible [jQuery](https://jquery.com/) version before Owl Carousel. jQuery is declared as a peer dependency by the npm package.
 
 
 ### Next Step
