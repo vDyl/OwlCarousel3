@@ -7,9 +7,9 @@ names so existing integrations can upgrade with minimal application changes.
 
 ## jQuery compatibility
 
-Owl Carousel 3 supports jQuery `>=1.8.3 <5`, including jQuery 3.7.1 and
-jQuery 4.x. The source and generated distribution bundles are tested without
-jQuery Migrate on jQuery 1.8.3, 2.2.4, 3.7.1, and 4.0.0.
+Owl Carousel 3 is compatible with jQuery 1.8.3 through 4. Its test matrix
+covers jQuery 1.8.3, 2.2.4, 3.7.1, and 4.0.0, both with and without the
+matching jQuery Migrate release.
 
 For the complete compatibility guidance and upgrade notes, see
 [UPGRADEJ4.md](UPGRADEJ4.md).
@@ -40,11 +40,11 @@ building the project. Use a versioned URL in production so a future release
 cannot change the files used by your site.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.0/dist/assets/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.0/dist/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.1/dist/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.1/dist/assets/owl.theme.default.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.0/dist/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.1/dist/owl.carousel.min.js"></script>
 ```
 
 Load jQuery before Owl Carousel. The default theme stylesheet is optional;
@@ -92,7 +92,9 @@ styles.
 
 ## Development
 
-The project requires Node.js 20.19 or later.
+Node.js 20.19 or later is required only for developing, building, and testing
+the project from source. It is not required when using the prebuilt browser
+files from npm or a CDN.
 
 ```sh
 npm install

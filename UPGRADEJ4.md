@@ -41,9 +41,9 @@ assets used by the static documentation. Use `npm test` to rebuild first, then
 run the QUnit test suite in Chromium.
 
 The automated test matrix covers both `src/` and `dist/` with jQuery 1.8.3,
-2.2.4, 3.7.1, and 4.0.0, without jQuery Migrate. A successful local run
-reports eight passing browser tests. See [BUILDING.md](BUILDING.md) for the
-full workflow.
+2.2.4, 3.7.1, and 4.0.0, both with and without the matching jQuery Migrate
+release. A successful local run reports sixteen passing browser tests. See
+[BUILDING.md](BUILDING.md) for the full workflow.
 
 ## Sass custom-theme migration
 

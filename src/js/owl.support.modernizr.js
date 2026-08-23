@@ -1,7 +1,7 @@
 /**
  * Modernizr Support Plugin
  *
- * @version 3.0.0
+ * @version 3.0.1
  * @license The MIT License (MIT)
  */
 ;(function($, Modernizr, window, document, undefined) {

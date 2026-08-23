@@ -10,7 +10,7 @@ const root = process.cwd();
 const dist = resolve(root, 'dist');
 const assets = resolve(dist, 'assets');
 const docsDist = resolve(root, 'docs', 'assets', 'owlcarousel');
-const banner = '/*! Owl Carousel v3.0.0 | MIT License */\n';
+const banner = '/*! Owl Carousel v3.0.1 | MIT License */\n';
 const browserTargets = [ 'last 2 versions', 'ie 11' ];
 const stylesheets = [
 	[ 'src/scss/owl.carousel.scss', 'owl.carousel.css' ],

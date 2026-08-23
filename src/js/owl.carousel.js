@@ -1,6 +1,6 @@
 /**
  * Owl carousel
- * @version 3.0.0
+ * @version 3.0.1
  * @license The MIT License (MIT)
  * @todo Lazy Load Icon
  * @todo prevent animationend bubling

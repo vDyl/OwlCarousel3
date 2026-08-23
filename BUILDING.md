@@ -49,8 +49,8 @@ be loaded directly by custom themes.
 
 Playwright serves the repository locally and runs the existing QUnit tests
 against both the source files and `dist/owl.carousel.js`. Each target is tested
-without jQuery Migrate using locally pinned jQuery 1.8.3, 2.2.4, 3.7.1, and
-4.0.0.
+with locally pinned jQuery 1.8.3, 2.2.4, 3.7.1, and 4.0.0, both with and without
+the matching jQuery Migrate release.
 
 ## Removed legacy tooling
 

@@ -1,7 +1,7 @@
 {
   "name": "owlcarousel3",
   "description": "Modern, touch-enabled responsive carousel plugin for jQuery.",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "./dist/owl.carousel.js",
   "style": "./dist/assets/owl.carousel.css",
   "unpkg": "./dist/owl.carousel.min.js",
@@ -29,9 +29,6 @@
     "clean": "rimraf dist",
     "test": "npm run build && playwright test",
     "test:watch": "playwright test --ui"
-  },
-  "engines": {
-    "node": ">=20.19.0"
   },
   "peerDependencies": {
     "jquery": ">=1.8.3 <5"
