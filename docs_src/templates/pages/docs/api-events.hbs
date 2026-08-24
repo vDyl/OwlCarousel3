@@ -14,7 +14,7 @@ tags:
 
 > Events are provided by Owl Carousel in strategic code locations. This gives you the ability to listen for any changes and perform your own actions.
 
-```
+```javascript
 var owl = $('.owl-carousel');
 owl.owlCarousel();
 
@@ -24,10 +24,9 @@ owl.on('changed.owl.carousel', function(event) {
 })
 
 ```
-
 You could also trigger events by yourself to control Owl Carousel:
 
-```
+```javascript
 var owl = $('.owl-carousel');
 owl.owlCarousel();
 
@@ -44,12 +43,11 @@ $('.customPrevBtn').click(function() {
 })
 
 ```
-
 ### Callbacks
 
 Instead of attaching an event handler you can also just add a callback to the options of Owl Carousel.
 
-```
+```javascript
 $('.owl-carousel').owlCarousel({
 	onDragged: callback
 });
@@ -58,12 +56,11 @@ function callback(event) {
 	...
 }
 ```
-
 ### Data
 
 Each event passes very useful information within the [event object](https://api.jquery.com/category/events/event-object/). Based on the example above:
 
-```Javascript
+```javascript
 function callback(event) {
 	// Provided by the core
 	var element   = event.target;         // DOM element, in this example .owl-carousel

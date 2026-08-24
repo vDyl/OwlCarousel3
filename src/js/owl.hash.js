@@ -55,7 +55,7 @@
 				}
 			}, this),
 			'changed.owl.carousel': $.proxy(function(e) {
-				if (e.namespace && e.property.name === 'position') {
+				if (e.namespace && e.property.name === 'position' && this._core.settings.URLhashListener) {
 					var current = this._core.items(this._core.relative(this._core.current())),
 						hash = $.map(this._hashes, function(item, hash) {
 							return item === current ? hash : null;
@@ -77,7 +77,11 @@
 		this.$element.on(this._handlers);
 
 		// register event listener for hash navigation
-		$(window).on('hashchange.owl.navigation', $.proxy(function(e) {
+		this._hashchangeHandler = $.proxy(function(e) {
+			if (!this._core.settings.URLhashListener && e.originalEvent) {
+				return;
+			}
+
 			var hash = window.location.hash.substring(1),
 				items = this._core.$stage.children(),
 				position = this._hashes[hash] && items.index(this._hashes[hash]);
@@ -87,7 +91,8 @@
 			}
 
 			this._core.to(this._core.relative(position), false, true);
-		}, this));
+		}, this);
+		$(window).on('hashchange.owl.navigation', this._hashchangeHandler);
 	};
 
 	/**
@@ -105,16 +110,18 @@
 	Hash.prototype.destroy = function() {
 		var handler, property;
 
-		$(window).off('hashchange.owl.navigation');
+		$(window).off('hashchange.owl.navigation', this._hashchangeHandler);
 
 		for (handler in this._handlers) {
 			this._core.$element.off(handler, this._handlers[handler]);
 		}
-		for (property in Object.getOwnPropertyNames(this)) {
-			typeof this[property] != 'function' && (this[property] = null);
+		for (property in this) {
+			if (Object.prototype.hasOwnProperty.call(this, property) && typeof this[property] !== 'function') {
+				this[property] = null;
+			}
 		}
 	};
 
 	$.fn.owlCarousel.Constructor.Plugins.Hash = Hash;
 
-})(window.Zepto || window.jQuery, window, document);
+})(window.jQuery, window, document);

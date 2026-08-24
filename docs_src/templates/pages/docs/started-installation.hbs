@@ -17,10 +17,9 @@ tags:
 
 Install Owl Carousel 3 in an npm project:
 
-```
+```bash
 npm install owlcarousel3
 ```
-
 The package declares jQuery `>=1.8.3 <5` as a peer dependency. npm 7 and newer install a compatible jQuery version automatically when your project does not already provide one.
 
 ### CDN
@@ -37,7 +36,7 @@ Use versioned jsDelivr URLs when loading the prebuilt files without npm:
 
 ### Include CSS
 First, include two CSS files into your HTML head:
-```
+```html
 <link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
 <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
 ```
@@ -52,7 +51,7 @@ The npm package also contains the [SCSS](https://sass-lang.com/) source for cust
 
 When using local files, include jQuery followed by `owl.carousel.min.js` near the end of the page.
 
-```
+```html
 <script src="jquery.min.js"></script>
 <script src="owlcarousel/owl.carousel.min.js"></script>
 ```
@@ -62,7 +61,7 @@ When using local files, include jQuery followed by `owl.carousel.min.js` near th
 You don't need any special markup. All you need is to wrap your divs(owl works with any type element a/img/span..) inside the container element `<div class="owl-carousel">`.
 Class "owl-carousel" is mandatory to apply proper styles that come from owl.carousel.css file. If you want the default nav controls like dots or buttons, you must also include the "owl-theme" class on that same div.
 
-```
+```html
 <!-- Set up your HTML -->
 <div class="owl-carousel">
   <div> Your Content </div>
@@ -79,7 +78,7 @@ Class "owl-carousel" is mandatory to apply proper styles that come from owl.caro
 
 Now call the Owl initializer function and your carousel is ready.
 
-```
+```javascript
 $(document).ready(function(){
   $(".owl-carousel").owlCarousel();
 });

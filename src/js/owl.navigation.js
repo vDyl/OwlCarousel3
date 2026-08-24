@@ -87,7 +87,7 @@
 				}
 			}, this),
 			'changed.owl.carousel': $.proxy(function(e) {
-				if (e.namespace && e.property.name == 'position') {
+				if (e.namespace && e.property.name === 'position') {
 					this.draw();
 				}
 			}, this),
@@ -194,19 +194,6 @@
 			this.to(index, settings.dotsSpeed);
 		}, this));
 
-		/*$el.on('focusin', function() {
-			$(document).off(".carousel");
-
-			$(document).on('keydown.carousel', function(e) {
-				if(e.keyCode == 37) {
-					$el.trigger('prev.owl')
-				}
-				if(e.keyCode == 39) {
-					$el.trigger('next.owl')
-				}
-			});
-		});*/
-
 		// override public methods of the carousel
 		for (override in this._overrides) {
 			this._core[override] = $.proxy(this[override], this);
@@ -231,11 +218,13 @@
 				this._controls[control].remove();
 			}
 		}
-		for (override in this.overides) {
+		for (override in this._overrides) {
 			this._core[override] = this._overrides[override];
 		}
-		for (property in Object.getOwnPropertyNames(this)) {
-			typeof this[property] != 'function' && (this[property] = null);
+		for (property in this) {
+			if (Object.prototype.hasOwnProperty.call(this, property) && typeof this[property] !== 'function') {
+				this[property] = null;
+			}
 		}
 	};
 
@@ -244,7 +233,7 @@
 	 * @protected
 	 */
 	Navigation.prototype.update = function() {
-		var i, j, k,
+		var i, j,
 			lower = this._core.clones().length / 2,
 			upper = lower + this._core.items().length,
 			maximum = this._core.maximum(true),
@@ -256,10 +245,10 @@
 			settings.slideBy = Math.min(settings.slideBy, settings.items);
 		}
 
-		if (settings.dots || settings.slideBy == 'page') {
+		if (settings.dots || settings.slideBy === 'page') {
 			this._pages = [];
 
-			for (i = lower, j = 0, k = 0; i < upper; i++) {
+			for (i = lower, j = 0; i < upper; i++) {
 				if (j >= size || j === 0) {
 					this._pages.push({
 						start: Math.min(maximum, i - lower),
@@ -268,7 +257,7 @@
 					if (Math.min(maximum, i - lower) === maximum) {
 						break;
 					}
-					j = 0, ++k;
+					j = 0;
 				}
 				j += this._core.mergers(this._core.relative(i));
 			}
@@ -335,7 +324,7 @@
 	 */
 	Navigation.prototype.current = function() {
 		var current = this._core.relative(this._core.current());
-		return $.grep(this._pages, $.proxy(function(page, index) {
+		return $.grep(this._pages, $.proxy(function(page) {
 			return page.start <= current && page.end >= current;
 		}, this)).pop();
 	};
@@ -349,7 +338,7 @@
 		var position, length,
 			settings = this._core.settings;
 
-		if (settings.slideBy == 'page') {
+		if (settings.slideBy === 'page') {
 			position = $.inArray(this.current(), this._pages);
 			length = this._pages.length;
 			successor ? ++position : --position;
@@ -401,4 +390,4 @@
 
 	$.fn.owlCarousel.Constructor.Plugins.Navigation = Navigation;
 
-})(window.Zepto || window.jQuery, window, document);
+})(window.jQuery, window, document);

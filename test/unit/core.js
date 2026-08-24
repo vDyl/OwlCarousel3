@@ -1,16 +1,16 @@
-module('Core tests');
+QUnit.module('Core tests');
 
-test('replace with loop', function() {
-	expect(1);
-	before_and_after_replace({ loop: true });
+QUnit.test('replace with loop', function(assert) {
+	assert.expect(1);
+	before_and_after_replace(assert, { loop: true });
 });
 
-test('replace without loop', function() {
-	expect(1);
-	before_and_after_replace({ loop: false });
+QUnit.test('replace without loop', function(assert) {
+	assert.expect(1);
+	before_and_after_replace(assert, { loop: false });
 });
 
-function before_and_after_replace(options) {
+function before_and_after_replace(assert, options) {
 	var simple = $('#simple'),
 		replacement = simple.html(),
 		expected = null;
@@ -22,22 +22,22 @@ function before_and_after_replace(options) {
 	simple.trigger('replace.owl.carousel', [ replacement ]);
 	simple.trigger('refresh.owl.carousel');
 	
-	equal(simple.html(), expected, 'Inner HTML before and after replace equals.');
+	assert.equal(simple.html(), expected, 'Inner HTML before and after replace equals.');
 }
 
-test('remove with loop', function() {
-	expect(3);
+QUnit.test('remove with loop', function(assert) {
+	assert.expect(3);
 	
-	before_and_after_remove({ loop: true });
+	before_and_after_remove(assert, { loop: true });
 });
 
-test('remove without loop', function() {
-	expect(3);
+QUnit.test('remove without loop', function(assert) {
+	assert.expect(3);
 	
-	before_and_after_remove({ loop: false });
+	before_and_after_remove(assert, { loop: false });
 });
 
-function before_and_after_remove(options) {
+function before_and_after_remove(assert, options) {
 	var simple = $('#simple'),
 		one = simple.clone().removeAttr('id').insertAfter('#simple'),
 		two = one.clone().insertAfter(one),
@@ -55,32 +55,32 @@ function before_and_after_remove(options) {
 	simple.trigger('remove.owl.carousel', [ 0 ]);
 	simple.trigger('refresh.owl.carousel');
 	
-	equal(simple.html(), one.html(), 'Inner HTML before and after remove one equals.');
+	assert.equal(simple.html(), one.html(), 'Inner HTML before and after remove one equals.');
 	
 	simple.trigger('remove.owl.carousel', [ 1 ]);
 	simple.trigger('refresh.owl.carousel');
 	
-	equal(simple.html(), two.html(), 'Inner HTML before and after remove two equals.');
+	assert.equal(simple.html(), two.html(), 'Inner HTML before and after remove two equals.');
 	
 	simple.trigger('remove.owl.carousel', [ 0 ]);
 	simple.trigger('refresh.owl.carousel');
 	
-	equal(simple.html(), all.html(), 'Inner HTML before and after remove all equals.');
+	assert.equal(simple.html(), all.html(), 'Inner HTML before and after remove all equals.');
 }
 
-test('remove and add with loop', function() {
-	expect(1);
+QUnit.test('remove and add with loop', function(assert) {
+	assert.expect(1);
 	
-	before_and_after_remove_add({ loop: true });
+	before_and_after_remove_add(assert, { loop: true });
 });
 
-test('remove and add without loop', function() {
-	expect(1);
+QUnit.test('remove and add without loop', function(assert) {
+	assert.expect(1);
 	
-	before_and_after_remove_add({ loop: false });
+	before_and_after_remove_add(assert, { loop: false });
 });
 
-function before_and_after_remove_add(options) {
+function before_and_after_remove_add(assert, options) {
 	var simple = $('#simple'),
 		simpleClone = $('#simple').clone().removeAttr('id').insertAfter('#simple');
 
@@ -96,54 +96,52 @@ function before_and_after_remove_add(options) {
 	simple.trigger('add.owl.carousel', [ '<li>1</li>' ]);
 	simple.trigger('refresh.owl.carousel');
 	
-	equal(simple.html(), simpleClone.html(), 'Inner HTML before and after `remove()` and `add()` equals.');
+	assert.equal(simple.html(), simpleClone.html(), 'Inner HTML before and after `remove()` and `add()` equals.');
 }
 
-test('invalidate', function() {
-	expect(6);
+QUnit.test('invalidate', function(assert) {
+	assert.expect(6);
 	
 	var carousel = $('#simple').owlCarousel().data('owl.carousel');
 	
-	deepEqual(carousel.invalidate(), [], 'No invalid parts after initializing.');
+	assert.deepEqual(carousel.invalidate(), [], 'No invalid parts after initializing.');
 
 	carousel.invalidate('first');
 	
-	deepEqual(carousel.invalidate(), [ 'first' ], 'One invalid part after invalidating one.');
+	assert.deepEqual(carousel.invalidate(), [ 'first' ], 'One invalid part after invalidating one.');
 	
 	carousel.invalidate('second');
 	
-	deepEqual(carousel.invalidate(), [ 'first', 'second' ], 'Two invalid parts after invalidating a second one.');
+	assert.deepEqual(carousel.invalidate(), [ 'first', 'second' ], 'Two invalid parts after invalidating a second one.');
 	
 	carousel.invalidate('second');
 	
-	deepEqual(carousel.invalidate(), [ 'first', 'second' ], 'Two invalid parts after invalidating a part twice.');
+	assert.deepEqual(carousel.invalidate(), [ 'first', 'second' ], 'Two invalid parts after invalidating a part twice.');
 	
 	carousel.update();
 	
-	deepEqual(carousel.invalidate(), [], 'No invalid parts after updating.');
+	assert.deepEqual(carousel.invalidate(), [], 'No invalid parts after updating.');
 	
-	deepEqual(carousel.invalidate('first'), [ 'first' ], 'Invalidating one part returns it directly.');
+	assert.deepEqual(carousel.invalidate('first'), [ 'first' ], 'Invalidating one part returns it directly.');
 });
 
-test('event callbacks use camel-cased option names', function() {
-	expect(1);
+QUnit.test('event callbacks use camel-cased option names', function(assert) {
+	assert.expect(1);
 
 	$('#simple').owlCarousel({
 		onInitialized: function() {
-			ok(true, 'The onInitialized callback is invoked.');
+			assert.ok(true, 'The onInitialized callback is invoked.');
 		}
 	});
 });
 
-test('destroy', function() {
-	expect(1);
+QUnit.test('destroy', function(assert) {
+	assert.expect(1);
 	
 	var simple = $('#simple'),
 		expected = simple.get(0).outerHTML.replace(/\s{2,}/g, '');
 	
 	simple.owlCarousel().owlCarousel('destroy');
 	
-	equal(simple.get(0).outerHTML.replace(/\s{2,}/g, ''), expected, 'Outer HTML before create and after destroy is equal.');
+	assert.equal(simple.get(0).outerHTML.replace(/\s{2,}/g, ''), expected, 'Outer HTML before create and after destroy is equal.');
 });
-
-QUnit.start();

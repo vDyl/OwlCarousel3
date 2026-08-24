@@ -50,30 +50,30 @@
 		// register event handlers
 		this._core.$element.on(this._handlers);
 		this._intervalId = null;
-		var refThis = this;
+		this._windowHandlers = {
+			load: $.proxy(function() {
+				if (this._core.settings.autoHeight) {
+					this.update();
+				}
+			}, this),
+			resize: $.proxy(function() {
+				if (!this._core.settings.autoHeight) {
+					return;
+				}
+
+				if (this._intervalId !== null) {
+					window.clearTimeout(this._intervalId);
+				}
+
+				this._intervalId = window.setTimeout($.proxy(this.update, this), 250);
+			}, this)
+		};
 
 		// These changes have been taken from a PR by gavrochelegnou proposed in #1575
 		// and have been made compatible with the latest jQuery version
-		$(window).on('load', function() {
-			if (refThis._core.settings.autoHeight) {
-				refThis.update();
-			}
-		});
-
-		// Autoresize the height of the carousel when window is resized
-		// When carousel has images, the height is dependent on the width
-		// and should also change on resize
-		$(window).resize(function() {
-			if (refThis._core.settings.autoHeight) {
-				if (refThis._intervalId != null) {
-					clearTimeout(refThis._intervalId);
-				}
-
-				refThis._intervalId = setTimeout(function() {
-					refThis.update();
-				}, 250);
-			}
-		});
+		$(window)
+			.on('load.owl.autoheight', this._windowHandlers.load)
+			.on('resize.owl.autoheight', this._windowHandlers.resize);
 
 	};
 
@@ -117,14 +117,21 @@
 	AutoHeight.prototype.destroy = function() {
 		var handler, property;
 
+		window.clearTimeout(this._intervalId);
+		$(window)
+			.off('load.owl.autoheight', this._windowHandlers.load)
+			.off('resize.owl.autoheight', this._windowHandlers.resize);
+
 		for (handler in this._handlers) {
 			this._core.$element.off(handler, this._handlers[handler]);
 		}
-		for (property in Object.getOwnPropertyNames(this)) {
-			typeof this[property] !== 'function' && (this[property] = null);
+		for (property in this) {
+			if (Object.prototype.hasOwnProperty.call(this, property) && typeof this[property] !== 'function') {
+				this[property] = null;
+			}
 		}
 	};
 
 	$.fn.owlCarousel.Constructor.Plugins.AutoHeight = AutoHeight;
 
-})(window.Zepto || window.jQuery, window, document);
+})(window.jQuery, window, document);

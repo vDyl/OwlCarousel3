@@ -120,6 +120,10 @@
 
 			id = url.match(/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com|be\-nocookie\.com))\/(video\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
 
+			if (!id) {
+				throw new Error('Video URL not supported.');
+			}
+
 			if (id[3].indexOf('youtu') > -1) {
 				type = 'youtube';
 			} else if (id[3].indexOf('vimeo') > -1) {
@@ -128,6 +132,8 @@
 				throw new Error('Video URL not supported.');
 			}
 			id = id[6];
+		} else if (id) {
+			url = type === 'vimeo' ? 'https://vimeo.com/' + id : 'https://www.youtube.com/watch?v=' + id;
 		} else {
 			throw new Error('Missing video URL.');
 		}
@@ -243,8 +249,7 @@
 			video = this._videos[item.attr('data-video')],
 			width = video.width || '100%',
 			height = video.height || this._core.$stage.height(),
-			html,
-			iframe;
+			html;
 
 		if (this._playing) {
 			return;
@@ -266,7 +271,7 @@
 			html.attr( 'src', 'https://player.vimeo.com/video/' + video.id + '?autoplay=1' );
 		}
 
-		iframe = $(html).wrap( '<div class="owl-video-frame"></div>' ).insertAfter(item.find('.owl-video'));
+		$(html).wrap( '<div class="owl-video-frame"></div>' ).insertAfter(item.find('.owl-video'));
 
 		this._playing = item.addClass('owl-video-playing');
 	};
@@ -295,11 +300,13 @@
 		for (handler in this._handlers) {
 			this._core.$element.off(handler, this._handlers[handler]);
 		}
-		for (property in Object.getOwnPropertyNames(this)) {
-			typeof this[property] != 'function' && (this[property] = null);
+		for (property in this) {
+			if (Object.prototype.hasOwnProperty.call(this, property) && typeof this[property] !== 'function') {
+				this[property] = null;
+			}
 		}
 	};
 
 	$.fn.owlCarousel.Constructor.Plugins.Video = Video;
 
-})(window.Zepto || window.jQuery, window, document);
+})(window.jQuery, window, document);

@@ -23,7 +23,7 @@ tags:
 	<div class="item" data-hash="nine" ><h4>9</h4></div>
 	<div class="item" data-hash="ten" ><h4>10</h4></div>
 	<div class="item" data-hash="eleven" ><h4>11</h4></div>
-	<div class="item" data-hash="tweleve" ><h4>12</h4></div>
+	<div class="item" data-hash="twelve" ><h4>12</h4></div>
 	<div class="item" data-hash="thirteen" ><h4>13</h4></div>
 	<div class="item" data-hash="fourteen" ><h4>14</h4></div>
 	<div class="item" data-hash="fifteen" ><h4>15</h4></div>
@@ -39,16 +39,14 @@ tags:
 {{#markdown }}
 ### Overview
 
-> URLhashListener option is listening for url hash change and is looking for slide with the same data name e.g. `data-hash="zero"`
+> The `URLhashListener` option listens for URL hash changes and selects the slide with the matching `data-hash` value, for example `data-hash="zero"`.
 
-Also `startPosition` option accept string: `'URLHash'`. This will load corresponding items on startup. Browser history back button is also affected.
+The `startPosition` option also accepts `'URLHash'`. This loads the corresponding item on startup. When `URLhashListener:true`, browser back and forward navigation also follows carousel hash changes.
 
 ### Setup
-```
+```javascript
 	$('.owl-carousel').owlCarousel({
-		items:4,
 		loop:false,
-		center:true,
 		margin:10,
 		URLhashListener:true,
 		autoplayHoverPause:true,
@@ -60,11 +58,8 @@ Also `startPosition` option accept string: `'URLHash'`. This will load correspon
 <script>
 $(document).ready(function(){
 	$('.owl-carousel').owlCarousel({
-		items:4,
 		loop:false,
-		center:true,
 		margin:10,
-		callbacks:true,
 		URLhashListener:true,
 		autoplayHoverPause:true,
 		startPosition: 'URLHash'

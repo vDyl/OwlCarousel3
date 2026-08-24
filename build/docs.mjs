@@ -1,8 +1,37 @@
 import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import { build } from 'esbuild';
 import Handlebars from 'handlebars';
 import { marked } from 'marked';
+import postcss from 'postcss';
+import * as sass from 'sass';
 import YAML from 'yaml';
+
+const browserTargets = [ 'last 2 versions', 'ie 11' ];
+
+async function writeStylesheet(css, source, destination, filename) {
+	const output = resolve(destination, filename);
+	const minifiedOutput = resolve(destination, filename.replace('.css', '.min.css'));
+	const prefixed = await postcss([ autoprefixer({ overrideBrowserslist: browserTargets }) ])
+		.process(css, { from: source, to: output });
+	const minified = await postcss([ cssnano() ])
+		.process(prefixed.css, { from: output, to: minifiedOutput });
+	await Promise.all([
+		writeFile(output, prefixed.css),
+		writeFile(minifiedOutput, minified.css)
+	]);
+}
+
+async function buildSassStylesheet(source, destination, filename) {
+	const compiled = sass.compile(source, { style: 'expanded' });
+	await writeStylesheet(compiled.css, source, destination, filename);
+}
+
+async function buildCssStylesheet(source, destination, filename) {
+	await writeStylesheet(await readFile(source, 'utf8'), source, destination, filename);
+}
 
 async function filesIn(directory) {
 	const entries = await readdir(directory, { withFileTypes: true });
@@ -95,7 +124,24 @@ export async function buildDocs(root, dist) {
 	for (const directory of [ 'css', 'img', 'js', 'vendors' ]) {
 		await cp(resolve(source, 'assets', directory), resolve(destination, 'assets', directory), { recursive: true });
 	}
+	await Promise.all([
+		buildSassStylesheet(resolve(source, 'assets/scss/docs.theme.scss'), resolve(destination, 'assets/css'), 'docs.theme.css'),
+		buildCssStylesheet(resolve(source, 'assets/css/animate.css'), resolve(destination, 'assets/css'), 'animate.css'),
+		build({
+			entryPoints: [ resolve(root, 'build/highlight.js') ],
+			bundle: true,
+			format: 'iife',
+			target: 'es2015',
+			minify: true,
+			outfile: resolve(destination, 'assets/vendors/highlight.js'),
+			legalComments: 'inline'
+		})
+	]);
 	await cp(dist, resolve(destination, 'assets', 'owlcarousel'), { recursive: true });
+	await Promise.all([
+		rm(resolve(destination, 'assets/owlcarousel/assets/owl.theme.green.css'), { force: true }),
+		rm(resolve(destination, 'assets/owlcarousel/assets/owl.theme.green.min.css'), { force: true })
+	]);
 
 	for (const page of pages) {
 		const layoutName = page.section === '.' ? 'home' : page.section === 'demos' ? 'demos' : 'docs';

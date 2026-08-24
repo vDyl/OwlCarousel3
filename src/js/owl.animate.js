@@ -19,14 +19,14 @@
 
 		this.handlers = {
 			'change.owl.carousel': $.proxy(function(e) {
-				if (e.namespace && e.property.name == 'position') {
+				if (e.namespace && e.property.name === 'position') {
 					this.previous = this.core.current();
 					this.next = e.property.value;
 				}
 			}, this),
 			'drag.owl.carousel dragged.owl.carousel translated.owl.carousel': $.proxy(function(e) {
 				if (e.namespace) {
-					this.swapping = e.type == 'translated';
+					this.swapping = e.type === 'translated';
 				}
 			}, this),
 			'translate.owl.carousel': $.proxy(function(e) {
@@ -109,11 +109,13 @@
 		for (handler in this.handlers) {
 			this.core.$element.off(handler, this.handlers[handler]);
 		}
-		for (property in Object.getOwnPropertyNames(this)) {
-			typeof this[property] != 'function' && (this[property] = null);
+		for (property in this) {
+			if (Object.prototype.hasOwnProperty.call(this, property) && typeof this[property] !== 'function') {
+				this[property] = null;
+			}
 		}
 	};
 
 	$.fn.owlCarousel.Constructor.Plugins.Animate = Animate;
 
-})(window.Zepto || window.jQuery, window, document);
+})(window.jQuery, window, document);

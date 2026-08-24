@@ -9,7 +9,7 @@
 <meta name="description" content="Url Hash Navigation usage demo">
 
 <title>
-  Url Hash Navigation Demo | Owl Carousel 3 | 3.0.2
+  Url Hash Navigation Demo | Owl Carousel 3 | 3.0.3
 </title>
 
 
@@ -20,12 +20,6 @@
 <!-- Owl Stylesheets -->
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 
 <!-- Favicons -->
 <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
@@ -89,7 +83,7 @@
 	<div class="item" data-hash="nine" ><h4>9</h4></div>
 	<div class="item" data-hash="ten" ><h4>10</h4></div>
 	<div class="item" data-hash="eleven" ><h4>11</h4></div>
-	<div class="item" data-hash="tweleve" ><h4>12</h4></div>
+	<div class="item" data-hash="twelve" ><h4>12</h4></div>
 	<div class="item" data-hash="thirteen" ><h4>13</h4></div>
 	<div class="item" data-hash="fourteen" ><h4>14</h4></div>
 	<div class="item" data-hash="fifteen" ><h4>15</h4></div>
@@ -104,14 +98,12 @@
 
 <h3>Overview</h3>
 <blockquote>
-<p>URLhashListener option is listening for url hash change and is looking for slide with the same data name e.g. <code>data-hash=&quot;zero&quot;</code></p>
+<p>The <code>URLhashListener</code> option listens for URL hash changes and selects the slide with the matching <code>data-hash</code> value, for example <code>data-hash=&quot;zero&quot;</code>.</p>
 </blockquote>
-<p>Also <code>startPosition</code> option accept string: <code>&#39;URLHash&#39;</code>. This will load corresponding items on startup. Browser history back button is also affected.</p>
+<p>The <code>startPosition</code> option also accepts <code>&#39;URLHash&#39;</code>. This loads the corresponding item on startup. When <code>URLhashListener:true</code>, browser back and forward navigation also follows carousel hash changes.</p>
 <h3>Setup</h3>
-<pre><code>	$(&#39;.owl-carousel&#39;).owlCarousel({
-		items:4,
+<pre><code class="language-javascript">	$(&#39;.owl-carousel&#39;).owlCarousel({
 		loop:false,
-		center:true,
 		margin:10,
 		URLhashListener:true,
 		autoplayHoverPause:true,
@@ -122,17 +114,15 @@
 <script>
 $(document).ready(function(){
 	$('.owl-carousel').owlCarousel({
-		items:4,
 		loop:false,
-		center:true,
 		margin:10,
-		callbacks:true,
 		URLhashListener:true,
 		autoplayHoverPause:true,
 		startPosition: 'URLHash'
 	});
 })
-</script>		</div>
+</script>
+		</div>
 	</div>
 </section>
 

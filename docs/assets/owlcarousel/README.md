@@ -40,11 +40,11 @@ building the project. Use a versioned URL in production so a future release
 cannot change the files used by your site.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.2/dist/assets/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.2/dist/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/assets/owl.theme.default.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.2/dist/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/owl.carousel.min.js"></script>
 ```
 
 Load jQuery before Owl Carousel. The default theme stylesheet is optional;

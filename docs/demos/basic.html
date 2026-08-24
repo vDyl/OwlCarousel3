@@ -9,7 +9,7 @@
 <meta name="description" content="Basic usage demo">
 
 <title>
-  Basic Demo | Owl Carousel 3 | 3.0.2
+  Basic Demo | Owl Carousel 3 | 3.0.3
 </title>
 
 
@@ -20,12 +20,6 @@
 <!-- Owl Stylesheets -->
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 
 <!-- Favicons -->
 <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
@@ -92,12 +86,12 @@
 </div>
 
 <h3>Overview</h3>
-<p>Basic usage of Owl Carousel. I used <code>loop:true</code> and <code>margin:10</code>. The structure works with any kind of DOM element. In all of my examples i used <code>&lt;div class=&quot;item&quot;&gt;...&lt;/div&gt;</code> but you could put any other element <code>div/span/a/img...</code></p>
+<p>Basic usage of Owl Carousel with autoplay, looping, margins, and responsive item counts. The structure works with any kind of DOM element. These examples use <code>&lt;div class=&quot;item&quot;&gt;...&lt;/div&gt;</code>, but other elements such as <code>span</code>, <code>a</code>, and <code>img</code> are also supported.</p>
 <h3>Setup</h3>
-<pre><code>$(&#39;.owl-carousel&#39;).owlCarousel({
-	loop:true,
+<pre><code class="language-javascript">$(&#39;.owl-carousel&#39;).owlCarousel({
 	margin:10,
-	nav:true,
+	autoplay:true,
+	loop:true,
 	responsive:{
 		0:{
 			items:1
@@ -112,7 +106,7 @@
 })
 </code></pre>
 <h3>html</h3>
-<pre><code>&lt;div class=&quot;owl-carousel owl-theme&quot;&gt;
+<pre><code class="language-html">&lt;div class=&quot;owl-carousel owl-theme&quot;&gt;
 	&lt;div class=&quot;item&quot;&gt;&lt;h4&gt;1&lt;/h4&gt;&lt;/div&gt;
 	&lt;div class=&quot;item&quot;&gt;&lt;h4&gt;2&lt;/h4&gt;&lt;/div&gt;
 	&lt;div class=&quot;item&quot;&gt;&lt;h4&gt;3&lt;/h4&gt;&lt;/div&gt;
@@ -134,7 +128,7 @@ $(document).ready(function(){
 
 	owl.owlCarousel({
 		margin:10,
-		nav:true,
+		autoplay:true,
 		loop:true,
 		responsive:{
 			0:{
@@ -151,7 +145,8 @@ $(document).ready(function(){
 })
 
 
-</script>		</div>
+</script>
+		</div>
 	</div>
 </section>
 

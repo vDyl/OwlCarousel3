@@ -5,7 +5,6 @@
  * @todo Lazy Load Icon
  * @todo prevent animationend bubling
  * @todo itemsScaleUp
- * @todo Test Zepto
  * @todo stagePadding calculate wrong active classes
  */
 ;(function($, window, document, undefined) {
@@ -1451,6 +1450,7 @@
 	 * @public
 	 */
 	Owl.prototype.destroy = function() {
+		var responsiveClass;
 
 		this.$element.off('.owl.core');
 		this.$stage.off('.owl.core');
@@ -1471,6 +1471,8 @@
 		this.$stage.children().contents().unwrap();
 		this.$stage.children().unwrap();
 		this.$stage.remove();
+		responsiveClass = new RegExp('(^|\\s)' + this.options.responsiveClass.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '-\\S+', 'g');
+
 		this.$element
 			.removeClass(this.options.refreshClass)
 			.removeClass(this.options.loadingClass)
@@ -1478,7 +1480,7 @@
 			.removeClass(this.options.rtlClass)
 			.removeClass(this.options.dragClass)
 			.removeClass(this.options.grabClass)
-			.attr('class', this.$element.attr('class').replace(new RegExp(this.options.responsiveClass + '-\\S+\\s', 'g'), ''))
+			.attr('class', (this.$element.attr('class') || '').replace(responsiveClass, '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, ''))
 			.removeData('owl.carousel');
 	};
 
@@ -1692,7 +1694,9 @@
 	 * @returns {Boolean} - An indication if the input is a Number or can be coerced to a Number
 	 */
 	Owl.prototype.isNumeric = function(number) {
-		return !isNaN(parseFloat(number));
+		return (typeof number === 'number' || typeof number === 'string')
+			&& !/^\s*$/.test(number)
+			&& isFinite(number);
 	};
 
 	/**
@@ -1723,7 +1727,7 @@
 				data = $this.data('owl.carousel');
 
 			if (!data) {
-				data = new Owl(this, typeof option == 'object' && option);
+				data = new Owl(this, typeof option === 'object' && option);
 				$this.data('owl.carousel', data);
 
 				$.each([
@@ -1740,7 +1744,7 @@
 				});
 			}
 
-			if (typeof option == 'string' && option.charAt(0) !== '_') {
+			if (typeof option === 'string' && option.charAt(0) !== '_') {
 				data[option].apply(data, args);
 			}
 		});
@@ -1752,4 +1756,4 @@
 	 */
 	$.fn.owlCarousel.Constructor = Owl;
 
-})(window.Zepto || window.jQuery, window, document);
+})(window.jQuery, window, document);

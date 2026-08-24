@@ -29,25 +29,25 @@ tags:
 {{#markdown }}
 ### Overview
 
-Autoplay plugin has three options:
-```
+The Autoplay plugin has four options:
+```javascript
 //default settings:
 
 autoplay:false
 autoplayTimeout:5000
 autoplayHoverPause:false
+autoplaySpeed:false
 ```
-
 In this example i've added two buttons with custom events for play and stop:
 
-```
+```javascript
 var owl = $('.owl-carousel');
 owl.owlCarousel({
 	items:4,
 	loop:true,
 	margin:10,
 	autoplay:true,
-	autoplayTimeout:1000,
+	autoplayTimeout:3000,
 	autoplayHoverPause:true
 });
 
@@ -59,7 +59,6 @@ $('.stop').on('click',function(){
 	owl.trigger('stop.owl.autoplay')
 })
 ```
-
 {{/markdown }} 
 
 <script>
@@ -70,7 +69,7 @@ $(document).ready(function(){
 		loop:true,
 		margin:10,
 		autoplay:true,
-		autoplayTimeout:1000,
+		autoplayTimeout:3000,
 		autoplayHoverPause:true
 	});
 

@@ -9,7 +9,7 @@
 <meta name="description" content="Owl Carousel Documentation">
 
 <title>
-  Installation | Owl Carousel 3 | 3.0.2
+  Installation | Owl Carousel 3 | 3.0.3
 </title>
 
 
@@ -20,12 +20,6 @@
 <!-- Owl Stylesheets -->
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 
 <!-- Favicons -->
 <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
@@ -107,20 +101,20 @@
 <hr>
 <h3>npm</h3>
 <p>Install Owl Carousel 3 in an npm project:</p>
-<pre><code>npm install owlcarousel3
+<pre><code class="language-bash">npm install owlcarousel3
 </code></pre>
 <p>The package declares jQuery <code>&gt;=1.8.3 &lt;5</code> as a peer dependency. npm 7 and newer install a compatible jQuery version automatically when your project does not already provide one.</p>
 <h3>CDN</h3>
 <p>Use versioned jsDelivr URLs when loading the prebuilt files without npm:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.2/dist/assets/owl.carousel.min.css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.2/dist/assets/owl.theme.default.min.css&quot;&gt;
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/assets/owl.carousel.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/assets/owl.theme.default.min.css&quot;&gt;
 
 &lt;script src=&quot;https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.2/dist/owl.carousel.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/owl.carousel.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <h3>Include CSS</h3>
 <p>First, include two CSS files into your HTML head:</p>
-<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;owlcarousel/owl.carousel.min.css&quot;&gt;
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;owlcarousel/owl.carousel.min.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;owlcarousel/owl.theme.default.min.css&quot;&gt;
 </code></pre>
 <blockquote>
@@ -130,13 +124,13 @@
 The npm package also contains the <a href="https://sass-lang.com/">SCSS</a> source for custom builds and themes.</p>
 <h3>Include JS</h3>
 <p>When using local files, include jQuery followed by <code>owl.carousel.min.js</code> near the end of the page.</p>
-<pre><code>&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+<pre><code class="language-html">&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;owlcarousel/owl.carousel.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <h3>Set HTML</h3>
 <p>You don&#39;t need any special markup. All you need is to wrap your divs(owl works with any type element a/img/span..) inside the container element <code>&lt;div class=&quot;owl-carousel&quot;&gt;</code>.
 Class &quot;owl-carousel&quot; is mandatory to apply proper styles that come from owl.carousel.css file. If you want the default nav controls like dots or buttons, you must also include the &quot;owl-theme&quot; class on that same div.</p>
-<pre><code>&lt;!-- Set up your HTML --&gt;
+<pre><code class="language-html">&lt;!-- Set up your HTML --&gt;
 &lt;div class=&quot;owl-carousel&quot;&gt;
   &lt;div&gt; Your Content &lt;/div&gt;
   &lt;div&gt; Your Content &lt;/div&gt;
@@ -149,7 +143,7 @@ Class &quot;owl-carousel&quot; is mandatory to apply proper styles that come fro
 </code></pre>
 <h3>Call the plugin</h3>
 <p>Now call the Owl initializer function and your carousel is ready.</p>
-<pre><code>$(document).ready(function(){
+<pre><code class="language-javascript">$(document).ready(function(){
   $(&quot;.owl-carousel&quot;).owlCarousel();
 });
 </code></pre>

@@ -9,7 +9,7 @@
 <meta name="description" content="Merge Items">
 
 <title>
-  Merge Demo | Owl Carousel 3 | 3.0.2
+  Merge Demo | Owl Carousel 3 | 3.0.3
 </title>
 
 
@@ -20,12 +20,6 @@
 <!-- Owl Stylesheets -->
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 
 <!-- Favicons -->
 <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
@@ -97,7 +91,7 @@
 <p>Merge option requires <code>data-merge=&quot;number_items_to_merge&quot;</code> on any child element (can be nested as well). There is a sibling option called <code>mergeFit</code> which fits merged elements to screen size. </p>
 <p>See item 6 on breakpoint below and above <code>1000px</code> screen width.</p>
 <h3>Setup</h3>
-<pre><code>$(&#39;.owl-carousel&#39;).owlCarousel({
+<pre><code class="language-javascript">$(&#39;.owl-carousel&#39;).owlCarousel({
 	items:5,
 	loop:true,
 	margin:10,
@@ -113,7 +107,7 @@
 });
 </code></pre>
 <h3>html</h3>
-<pre><code>&lt;div class=&quot;owl-carousel owl-theme&quot;&gt;
+<pre><code class="language-html">&lt;div class=&quot;owl-carousel owl-theme&quot;&gt;
 	&lt;div class=&quot;item&quot; data-merge=&quot;1&quot;&gt;&lt;h2&gt;1&lt;/h2&gt;&lt;/div&gt;
 	&lt;div class=&quot;item&quot; data-merge=&quot;2&quot;&gt;&lt;h2&gt;2&lt;/h2&gt;&lt;/div&gt;
 	&lt;div class=&quot;item&quot; data-merge=&quot;1&quot;&gt;&lt;h2&gt;3&lt;/h2&gt;&lt;/div&gt;
@@ -148,7 +142,8 @@ $(document).ready(function(){
 		}
 	});
 })
-</script>		</div>
+</script>
+		</div>
 	</div>
 </section>
 

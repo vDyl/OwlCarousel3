@@ -10,43 +10,29 @@ tags:
 - plugin
 ---
 
-<div class="fadeOut owl-carousel owl-theme">
-	<div class="item"><h4>1</h4></div>
-	<div class="item"><h4>2</h4></div>
-	<div class="item"><h4>3</h4></div>
-	<div class="item"><h4>4</h4></div>
-	<div class="item"><h4>5</h4></div>
-	<div class="item"><h4>6</h4></div>
-	<div class="item"><h4>7</h4></div>
-	<div class="item"><h4>8</h4></div>
-	<div class="item"><h4>9</h4></div>
-	<div class="item"><h4>10</h4></div>
-	<div class="item"><h4>11</h4></div>
-	<div class="item"><h4>12</h4></div>
-</div>
-
 {{#markdown }}
 ### Overview
 
 To get fade out effect just set:
 
-```
+```javascript
 animateOut: 'fadeOut'
 ```
-
 > `fadeOut` is the only animation included by Owl Carousel. Add your own CSS animations or use [Animate.css](https://animate.style/) for more effects.
 
 
 ### Important
-Animate functions work only with one item and only in browsers that support perspective property.
+Animate effects work only with `items:1` and in browsers that support CSS animations and transitions. They apply to programmatic navigation such as dots, arrows, autoplay, and API calls. During drag or swipe, Owl follows the pointer directly and intentionally skips these effects.
 
 ### How to use additional animation from `animate.css` library
 
-1. [Download Animate.css](https://animate.style/)
-2. Include animate.css into header.
-3. Set `animateOut` and `animateIn` options with the style names you picked.
+This demo includes the legacy-compatible Animate.css stylesheet whose class names do not use the newer `animate__` prefix.
 
-```
+1. Include the compatible Animate.css stylesheet in the page header.
+2. Set `animateOut` and `animateIn` to class names provided by that stylesheet.
+3. When using current Animate.css releases, ensure your integration provides the animation class names and base timing styles expected by Owl.
+
+```javascript
 $('.custom1').owlCarousel({
 	animateOut: 'slideOutDown',
 	animateIn: 'flipInX',
@@ -80,11 +66,11 @@ Example with slideOutDown and flipInX
 
 Before animation starts three classes are added to each item:
 
-* .animated - added on both In and Out item - ive included this class from Animate.css into Owl core CSS file.
-* .owl-animated-out - only on Out item - use it to change z-index
-* .owl-animated-in - only on In item - use it to change z-index
-* .classNameOut - only on Out item - this is your custom animation class from options.
-* .classNameIn - only on In item - this is your custom animation class from options.
+* `.animated` — added to both incoming and outgoing items; Owl core includes its timing styles.
+* `.owl-animated-out` — added only to the outgoing item and can be used to control its stacking order.
+* `.owl-animated-in` — added only to the incoming item and can be used to control its stacking order.
+* The configured `animateOut` class — added only to the outgoing item.
+* The configured `animateIn` class — added only to the incoming item.
 
 
 Part of owl.carousel.css:
@@ -105,14 +91,14 @@ Part of owl.carousel.css:
   z-index: 1
 }
 
-/* .owl-animated-in - only for upcoming item
+/* .owl-animated-in - only for upcoming item */
 /* This is very important class. Use z-index if you want move In item above Out item */
 
 .owl-animated-in{
   z-index: 0
 }
 
-/* .fadeOut is style taken from Animation.css and this is how it looks in owl.carousel.css:  */
+/* .fadeOut is included in owl.carousel.css: */
 
 .fadeOut {
   -webkit-animation-name: fadeOut;
@@ -141,7 +127,7 @@ Part of owl.carousel.css:
 
 {{/markdown }}
 
-<link rel="stylesheet" href="{{assets}}/css/animate.css">
+<link rel="stylesheet" href="{{assets}}/css/animate.min.css">
 <script>
 jQuery(document).ready(function($) {
 

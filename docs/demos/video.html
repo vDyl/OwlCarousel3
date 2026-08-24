@@ -9,7 +9,7 @@
 <meta name="description" content="Owl Carousel supports YouTube and Vimeo videos">
 
 <title>
-  Video Demo | Owl Carousel 3 | 3.0.2
+  Video Demo | Owl Carousel 3 | 3.0.3
 </title>
 
 
@@ -20,12 +20,6 @@
 <!-- Owl Stylesheets -->
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 
 <!-- Favicons -->
 <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
@@ -78,27 +72,31 @@
 
 <div class="owl-carousel owl-theme">
 	<div class="item-video" data-merge="3"><a class="owl-video" href="https://vimeo.com/23924346"></a></div>
-	<div class="item-video" data-merge="1"><a class="owl-video" href="https://www.youtube.com/watch?v=JpxsRwnRwCQ"></a></div>
-	<div class="item-video" data-merge="2"><a class="owl-video" href="https://www.youtube.com/watch?v=FBu_jxT1PkA"></a></div>
-	<div class="item-video" data-merge="1"><a class="owl-video" href="https://www.youtube.com/watch?v=oy18DJwy5lI"></a></div>
-	<div class="item-video" data-merge="2"><a class="owl-video" href="https://www.youtube.com/watch?v=H3jLkJrhHKQ"></a></div>
-	<div class="item-video" data-merge="3"><a class="owl-video" href="https://www.youtube.com/watch?v=g3J4VxWIM6s"></a></div>
-	<div class="item-video" data-merge="2"><a class="owl-video" href="https://www.youtube.com/watch?v=EF_kj2ojZaE"></a></div>
+	<div class="item-video" data-merge="1"><a class="owl-video" href="https://www.youtube.com/watch?v=M7lc1UVf-VE"></a></div>
+	<div class="item-video" data-merge="2"><a class="owl-video" href="https://www.youtube.com/watch?v=aqz-KE-bpKQ"></a></div>
+	<div class="item-video" data-merge="1"><a class="owl-video" href="https://www.youtube.com/watch?v=u9lj-c29dxI"></a></div>
+	<div class="item-video" data-merge="2"><a class="owl-video" href="https://www.youtube.com/watch?v=_cMxraX_5RE"></a></div>
 </div>
 
 <h3>Overview</h3>
-<p>Enable video option:</p>
-<pre><code>video:true
+<h3>Built-in video support</h3>
+<p>The video plugin provides automatic thumbnails, a play button, and embedded playback for YouTube and Vimeo. Enable it with:</p>
+<pre><code class="language-javascript">video: true
 </code></pre>
-<p>To add video into carousel just put <code>&lt;a class=&quot;owl-video&quot; href=&quot;_straight URL from YouTube or Vimeo&quot;&gt;&lt;/a&gt;</code>.</p>
-<p>A tag is not mandatory, it can be any other tag but &quot;owl-video&quot; and href with url link is required.</p>
+<p>Add an element with the <code>owl-video</code> class and a direct YouTube or Vimeo page URL:</p>
+<pre><code class="language-html">&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=VIDEO_ID&quot;&gt;&lt;/a&gt;
+</code></pre>
+<p>The element does not have to be an <code>&lt;a&gt;</code>. When another element is used, identify the video with <code>data-youtube-id=&quot;VIDEO_ID&quot;</code> or <code>data-vimeo-id=&quot;VIDEO_ID&quot;</code>.</p>
+<h3>Other video players</h3>
+<p>Carousel items can contain any HTML, so you can also add a native HTML5 <code>&lt;video&gt;</code> element, an iframe from another provider, or a third-party player component. Do not give these custom players the <code>owl-video</code> class: Owl Carousel will treat them as ordinary slide content and will not create their thumbnail or control playback.</p>
+<p>For a custom player, your application is responsible for its markup, responsive sizing, controls, autoplay permissions, accessibility, and stopping playback when the slide changes. Also follow the embedding, referrer, privacy, and Content Security Policy requirements of the selected provider.</p>
 <p>Serve pages over HTTP or HTTPS when using embedded players. Opening an HTML file directly with <code>file://</code> can prevent YouTube from receiving the referrer information required to identify the embedding page.</p>
 <p>Additional video options:</p>
-<pre><code>videoWidth: false, // Default false; Type: Boolean/Number
+<pre><code class="language-javascript">videoWidth: false, // Default false; Type: Boolean/Number
 videoHeight: false, // Default false; Type: Boolean/Number
 </code></pre>
 <h3>Setup</h3>
-<pre><code>	$(&#39;.owl-carousel&#39;).owlCarousel({
+<pre><code class="language-javascript">	$(&#39;.owl-carousel&#39;).owlCarousel({
 		items:1,
 		merge:true,
 		loop:true,
@@ -117,14 +115,12 @@ videoHeight: false, // Default false; Type: Boolean/Number
 	})
 </code></pre>
 <h3>html</h3>
-<pre><code>&lt;div class=&quot;owl-carousel owl-theme&quot;&gt;
+<pre><code class="language-html">&lt;div class=&quot;owl-carousel owl-theme&quot;&gt;
 	&lt;div class=&quot;item-video&quot; data-merge=&quot;3&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://vimeo.com/23924346&quot;&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;div class=&quot;item-video&quot; data-merge=&quot;1&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=JpxsRwnRwCQ&quot;&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;div class=&quot;item-video&quot; data-merge=&quot;2&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=FBu_jxT1PkA&quot;&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;div class=&quot;item-video&quot; data-merge=&quot;1&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=oy18DJwy5lI&quot;&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;div class=&quot;item-video&quot; data-merge=&quot;2&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=H3jLkJrhHKQ&quot;&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;div class=&quot;item-video&quot; data-merge=&quot;3&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=g3J4VxWIM6s&quot;&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;div class=&quot;item-video&quot; data-merge=&quot;2&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=EF_kj2ojZaE&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+	&lt;div class=&quot;item-video&quot; data-merge=&quot;1&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=M7lc1UVf-VE&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+	&lt;div class=&quot;item-video&quot; data-merge=&quot;2&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=aqz-KE-bpKQ&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+	&lt;div class=&quot;item-video&quot; data-merge=&quot;1&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=u9lj-c29dxI&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+	&lt;div class=&quot;item-video&quot; data-merge=&quot;2&quot;&gt;&lt;a class=&quot;owl-video&quot; href=&quot;https://www.youtube.com/watch?v=_cMxraX_5RE&quot;&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
 

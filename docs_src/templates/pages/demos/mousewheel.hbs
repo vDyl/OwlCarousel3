@@ -34,7 +34,7 @@ To add mouse-wheel scrolling, include the jQuery Mouse Wheel plugin created by B
 
 
 ### Setup
-```
+```javascript
 var owl = $('.owl-carousel');
 
 owl.owlCarousel({
@@ -59,15 +59,14 @@ owl.owlCarousel({
 
 owl.on('mousewheel', '.owl-stage', function (e) {
     if (e.deltaY>0) {
-		owl.trigger('next.owl');
+		owl.trigger('next.owl.carousel');
     } else {
-		owl.trigger('prev.owl');
+		owl.trigger('prev.owl.carousel');
     }
     e.preventDefault();
 });
 
 ```
-
 {{/markdown }} 
 
 <script src="{{assets}}/vendors/jquery.mousewheel.min.js"></script>
@@ -97,9 +96,9 @@ $(document).ready(function(){
 
 	owl.on('mousewheel', '.owl-stage', function (e) {
 	    if (e.deltaY>0) {
-			owl.trigger('next.owl');
+			owl.trigger('next.owl.carousel');
 	    } else {
-			owl.trigger('prev.owl');
+			owl.trigger('prev.owl.carousel');
 	    }
 	    e.preventDefault();
 	});

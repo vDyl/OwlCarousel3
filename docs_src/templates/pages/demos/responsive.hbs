@@ -35,7 +35,7 @@ tags:
 
 Setting of the responsive is very simple. Structure of responsive option:
 
-```
+```javascript
 responsive : {
 
 	// breakpoint from 0 up
@@ -61,18 +61,17 @@ responsive : {
 }
 
 ```
-
 ### Key facts:
 
-* Each breakpoint key can be a Number value (like in example) or a string: '480'.
-* Owl has an in-built sort option but  it’s best to set from the smallest screens to the widest.
-* Responsive options **always** overwrite top level settings.
+* Each breakpoint key can be a number, such as `480`, or a numeric string, such as `'480'`.
+* Breakpoints are evaluated numerically, but it is clearest to list them from the smallest screen to the widest.
+* Responsive options override matching top-level settings.
 * The default is an empty object. Without breakpoint entries, the top-level options are used.
 * Set `responsive:false` when you want to disable breakpoint handling.
 
 
 ### Live Example
-```
+```javascript
 $('.owl-carousel').owlCarousel({
 	loop:true,
 	margin:10,
@@ -90,12 +89,12 @@ $('.owl-carousel').owlCarousel({
 		1000:{
 			items:5,
 			nav:true,
-			loop:false
+			loop:false,
+			margin:20
 		}
 	}
 })
 ```
-
 ----
 
 ### Responsive related options:

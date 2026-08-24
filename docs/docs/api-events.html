@@ -9,7 +9,7 @@
 <meta name="description" content="Owl Carousel Documentation">
 
 <title>
-  Events | Owl Carousel 3 | 3.0.2
+  Events | Owl Carousel 3 | 3.0.3
 </title>
 
 
@@ -20,12 +20,6 @@
 <!-- Owl Stylesheets -->
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 
 <!-- Favicons -->
 <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
@@ -107,7 +101,7 @@
 <blockquote>
 <p>Events are provided by Owl Carousel in strategic code locations. This gives you the ability to listen for any changes and perform your own actions.</p>
 </blockquote>
-<pre><code>var owl = $(&#39;.owl-carousel&#39;);
+<pre><code class="language-javascript">var owl = $(&#39;.owl-carousel&#39;);
 owl.owlCarousel();
 
 // Listen to owl events:
@@ -116,7 +110,7 @@ owl.on(&#39;changed.owl.carousel&#39;, function(event) {
 })
 </code></pre>
 <p>You could also trigger events by yourself to control Owl Carousel:</p>
-<pre><code>var owl = $(&#39;.owl-carousel&#39;);
+<pre><code class="language-javascript">var owl = $(&#39;.owl-carousel&#39;);
 owl.owlCarousel();
 
 // Go to the next item
@@ -133,7 +127,7 @@ $(&#39;.customPrevBtn&#39;).click(function() {
 </code></pre>
 <h3>Callbacks</h3>
 <p>Instead of attaching an event handler you can also just add a callback to the options of Owl Carousel.</p>
-<pre><code>$(&#39;.owl-carousel&#39;).owlCarousel({
+<pre><code class="language-javascript">$(&#39;.owl-carousel&#39;).owlCarousel({
 	onDragged: callback
 });
 
@@ -143,7 +137,7 @@ function callback(event) {
 </code></pre>
 <h3>Data</h3>
 <p>Each event passes very useful information within the <a href="https://api.jquery.com/category/events/event-object/">event object</a>. Based on the example above:</p>
-<pre><code class="language-Javascript">function callback(event) {
+<pre><code class="language-javascript">function callback(event) {
 	// Provided by the core
 	var element   = event.target;         // DOM element, in this example .owl-carousel
 	var name      = event.type;           // Name of the event, in this example dragged

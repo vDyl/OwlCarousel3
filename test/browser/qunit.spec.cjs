@@ -13,6 +13,9 @@ for (const page of pages) {
 				await browserPage.goto('/test/' + page + '?jquery=' + version + (withMigrate ? '&migrate=1' : ''));
 				await browserPage.waitForFunction(() => window.__qunitDone, { timeout: 10000 })
 					.catch(() => { throw new Error(errors.join('\n') || 'QUnit did not render a result.'); });
+				const result = await browserPage.evaluate(() => window.__qunitResult);
+				expect(result.failed).toBe(0);
+				expect(result.total).toBeGreaterThanOrEqual(30);
 				await expect(browserPage.locator('#qunit')).toContainText(/\b0 failed\b/);
 				expect(await browserPage.evaluate(() => Boolean(window.jQuery.migrateVersion))).toBe(withMigrate);
 			});

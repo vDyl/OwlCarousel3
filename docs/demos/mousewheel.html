@@ -9,7 +9,7 @@
 <meta name="description" content="Mousewheel usage demo">
 
 <title>
-  Mousewheel Demo | Owl Carousel 3 | 3.0.2
+  Mousewheel Demo | Owl Carousel 3 | 3.0.3
 </title>
 
 
@@ -20,12 +20,6 @@
 <!-- Owl Stylesheets -->
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 
 <!-- Favicons -->
 <link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
@@ -95,7 +89,7 @@
 <p>To add mouse-wheel scrolling, include the jQuery Mouse Wheel plugin created by Brandon Aaron.
 <a href="https://github.com/brandonaaron/jquery-mousewheel">Link to plugin GitHub page</a></p>
 <h3>Setup</h3>
-<pre><code>var owl = $(&#39;.owl-carousel&#39;);
+<pre><code class="language-javascript">var owl = $(&#39;.owl-carousel&#39;);
 
 owl.owlCarousel({
 	loop:true,
@@ -119,9 +113,9 @@ owl.owlCarousel({
 
 owl.on(&#39;mousewheel&#39;, &#39;.owl-stage&#39;, function (e) {
     if (e.deltaY&gt;0) {
-		owl.trigger(&#39;next.owl&#39;);
+		owl.trigger(&#39;next.owl.carousel&#39;);
     } else {
-		owl.trigger(&#39;prev.owl&#39;);
+		owl.trigger(&#39;prev.owl.carousel&#39;);
     }
     e.preventDefault();
 });
@@ -154,9 +148,9 @@ $(document).ready(function(){
 
 	owl.on('mousewheel', '.owl-stage', function (e) {
 	    if (e.deltaY>0) {
-			owl.trigger('next.owl');
+			owl.trigger('next.owl.carousel');
 	    } else {
-			owl.trigger('prev.owl');
+			owl.trigger('prev.owl.carousel');
 	    }
 	    e.preventDefault();
 	});
