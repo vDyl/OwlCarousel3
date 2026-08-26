@@ -1105,6 +1105,9 @@
         this._core.trigger("load", { element: $element, url: url }, "lazy");
         if ($element.is("img")) {
           $element.one("load.owl.lazy", $.proxy(function() {
+            if (!this._core) {
+              return;
+            }
             $element.css("opacity", 1);
             this._core.trigger("loaded", { element: $element, url: url }, "lazy");
           }, this)).one("error.owl.lazy", failed).attr("src", url);
@@ -1113,6 +1116,9 @@
         } else {
           image = new Image();
           image.onload = $.proxy(function() {
+            if (!this._core) {
+              return;
+            }
             $element.css({
               "background-image": 'url("' + url + '")',
               "opacity": "1"

@@ -77,13 +77,16 @@ QUnit.test('load assigns the configured source to a lazy image once', function(a
 
 QUnit.test('a failed lazy image can be retried', function(assert) {
 	var done = assert.async(),
+		retrySource = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=',
 		fixture = createCarousel('<div><img class="owl-lazy" data-src="invalid://missing-image"></div>', { lazyLoad: true, items: 1 }),
 		plugin = fixture.core._plugins.lazy,
-		item = fixture.core.$stage.children().eq(fixture.core.current());
+		item = fixture.core.$stage.children().eq(fixture.core.current()),
+		image = item.find('.owl-lazy');
 
 	plugin.load(item.index());
-	item.find('.owl-lazy').one('error', function() {
+	image.one('error', function() {
 		assert.strictEqual(plugin._loaded.length, 0, 'A failed item is removed from the loaded cache.');
+		image.off('error').attr('data-src', retrySource);
 		plugin.load(item.index());
 		assert.strictEqual(plugin._loaded.length, 1, 'The failed item can start another load attempt.');
 		done();
@@ -97,6 +100,18 @@ QUnit.test('destroy removes lazy-load event handlers', function(assert) {
 	fixture.element.owlCarousel('destroy');
 	events = $._data(fixture.element.get(0), 'events') || {};
 	assert.notOk(events.initialized || events.change || events.resized, 'Lazy-load handlers are detached.');
+});
+
+QUnit.test('a late image load is ignored after destroy', function(assert) {
+	var fixture = createCarousel('<div><img class="owl-lazy" data-src="delayed.png"></div>', { lazyLoad: true, items: 1 }),
+		image = fixture.core.$stage.children().eq(fixture.core.current()).find('.owl-lazy'),
+		loadHandler;
+
+	fixture.core._plugins.lazy.load(fixture.core.current());
+	loadHandler = $._data(image.get(0), 'events').load[0].handler;
+	fixture.element.owlCarousel('destroy');
+	assert.notOk(fixture.element.data('owl.carousel'), 'The carousel is destroyed before the image finishes.');
+	assert.strictEqual(loadHandler.call(image.get(0)), undefined, 'The late load callback exits without accessing the destroyed core.');
 });
 
 QUnit.module('AutoHeight tests');

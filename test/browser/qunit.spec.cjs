@@ -16,8 +16,8 @@ for (const page of pages) {
 				const result = await browserPage.evaluate(() => window.__qunitResult);
 				const failures = await browserPage.evaluate(() => window.__qunitFailures);
 				expect(result.failed, failures.join('\n')).toBe(0);
-				expect(result.total).toBe(87);
-				expect(await browserPage.evaluate(() => window.__qunitTestCount)).toBe(31);
+				expect(result.total).toBe(89);
+				expect(await browserPage.evaluate(() => window.__qunitTestCount)).toBe(32);
 				await expect(browserPage.locator('#qunit')).toContainText(/\b0 failed\b/);
 				expect(await browserPage.evaluate(() => Boolean(window.jQuery.migrateVersion))).toBe(withMigrate);
 				expect(await browserPage.evaluate(() => {
