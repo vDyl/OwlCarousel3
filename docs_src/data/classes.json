@@ -85,8 +85,8 @@
   },
   {
     "name":     "responsiveClass",
-    "type":     "String",
-    "Default":  "owl-responsive",
-    "desc":     "Optional helper class. Add '<responsiveClass>-<breakpoint>' class to main element. Can be used to stylize content on given breakpoint."
+    "type":     "Boolean|String",
+    "Default":  false,
+    "desc":     "Optional helper class. Use true for 'owl-responsive-<breakpoint>' or provide a custom class prefix."
   }
 ]

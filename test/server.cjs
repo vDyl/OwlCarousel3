@@ -10,8 +10,15 @@ const contentTypes = {
 	'.map': 'application/json'
 };
 
-createServer((request, response) => {
+const server = createServer((request, response) => {
 	const pathname = new URL(request.url, 'http://localhost').pathname;
+
+	if (request.method === 'POST' && pathname === '/__playwright_shutdown__') {
+		response.writeHead(204).end();
+		response.once('finish', () => server.close());
+		return;
+	}
+
 	const filename = resolve(root, '.' + normalize(pathname));
 
 	if (!filename.startsWith(root)) {
@@ -28,4 +35,6 @@ createServer((request, response) => {
 	} catch (error) {
 		response.writeHead(404).end();
 	}
-}).listen(4173);
+});
+
+server.listen(4173, '127.0.0.1');

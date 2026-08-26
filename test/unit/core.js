@@ -145,3 +145,39 @@ QUnit.test('destroy', function(assert) {
 	
 	assert.equal(simple.get(0).outerHTML.replace(/\s{2,}/g, ''), expected, 'Outer HTML before create and after destroy is equal.');
 });
+
+QUnit.test('responsiveClass adds and replaces the active breakpoint class', function(assert) {
+	var fixture = $('<div class="owl-carousel"><div>One</div><div>Two</div></div>').appendTo('#qunit-fixture'),
+		carousel;
+
+	fixture.owlCarousel({
+		checkVisibility: false,
+		responsiveClass: true,
+		responsive: { 0: { items: 1 }, 600: { items: 2 } }
+	});
+	carousel = fixture.data('owl.carousel');
+	assert.ok(fixture.is('.owl-responsive-600'), 'The initial breakpoint class is added.');
+
+	carousel.viewport = function() { return 320; };
+	carousel.setup();
+	assert.ok(fixture.is('.owl-responsive-0'), 'The breakpoint class is replaced after setup.');
+	assert.notOk(fixture.is('.owl-responsive-600'), 'The previous breakpoint class is removed.');
+});
+
+QUnit.test('failed auto-width image preloads release the loading state', function(assert) {
+	var carousel = $('#simple').owlCarousel({ autoWidth: true }).data('owl.carousel'),
+		image = $('<img data-src="invalid://missing-image">'),
+		originalImage = window.Image,
+		preloadImage;
+
+	window.Image = function() {
+		preloadImage = document.createElement('img');
+		return preloadImage;
+	};
+
+	carousel.preloadAutoWidthImages(image);
+	assert.ok(carousel.is('pre-loading'), 'The preload enters the loading state.');
+	$(preloadImage).trigger('error');
+	window.Image = originalImage;
+	assert.notOk(carousel.is('pre-loading'), 'An image failure leaves the loading state.');
+});

@@ -10,6 +10,10 @@ npm run build
 npm test
 ```
 
+The default suite uses Chromium so it works consistently on development
+machines. For the complete browser-engine matrix, install all Playwright
+browsers with `npx playwright install` and run `npm run test:browsers`.
+
 ## Build output
 
 `npm run build` removes and recreates `dist/`. The build program:

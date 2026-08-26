@@ -40,11 +40,11 @@ building the project. Use a versioned URL in production so a future release
 cannot change the files used by your site.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/assets/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.4/dist/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.4/dist/assets/owl.theme.default.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.3/dist/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/owlcarousel3@3.0.4/dist/owl.carousel.min.js"></script>
 ```
 
 Load jQuery before Owl Carousel. The default theme stylesheet is optional;
@@ -104,7 +104,9 @@ npm test
 ```
 
 `npm run build` recreates `dist/` and synchronizes the static documentation
-assets. `npm test` rebuilds and runs the browser test matrix. See
+assets. `npm test` rebuilds and runs the Chromium test matrix. Maintainers can
+install all Playwright browsers and run `npm run test:browsers` for the full
+Chromium, Firefox, and WebKit matrix. See
 [BUILDING.md](BUILDING.md) for build details and custom Sass theme guidance.
 
 ## License

@@ -4,6 +4,7 @@ $owl-nav-color-hover: #FFF !default;
 $owl-nav-font-size: 14px !default;
 $owl-nav-margin: 5px !default;
 $owl-nav-padding: 4px 7px !default;
+$owl-nav-rounded: 3px !default;
 $owl-nav-background: #D6D6D6 !default;
 $owl-nav-background-hover: #869791 !default;
 $owl-nav-disabled-opacity: 0.5 !default;
@@ -29,7 +30,7 @@ $owl-dot-background-active: #869791 !default;
 			background: $owl-nav-background;
 			display: inline-block;
 			cursor: pointer;
-			border-radius: 3px;
+			border-radius: $owl-nav-rounded;
 
 			&:hover {
 				background: $owl-nav-background-hover;

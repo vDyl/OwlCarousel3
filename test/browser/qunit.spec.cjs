@@ -15,9 +15,17 @@ for (const page of pages) {
 					.catch(() => { throw new Error(errors.join('\n') || 'QUnit did not render a result.'); });
 				const result = await browserPage.evaluate(() => window.__qunitResult);
 				expect(result.failed).toBe(0);
-				expect(result.total).toBeGreaterThanOrEqual(30);
+				expect(result.total).toBe(87);
+				expect(await browserPage.evaluate(() => window.__qunitTestCount)).toBe(31);
 				await expect(browserPage.locator('#qunit')).toContainText(/\b0 failed\b/);
 				expect(await browserPage.evaluate(() => Boolean(window.jQuery.migrateVersion))).toBe(withMigrate);
+				expect(await browserPage.evaluate(() => {
+					const $ = window.jQuery;
+					return [ window, document ].some(target => {
+						const events = $._data(target, 'events') || {};
+						return Object.keys(events).some(type => events[type].some(handler => /(^|\.)owl(\.|$)/.test(handler.namespace || '')));
+					});
+				})).toBe(false);
 			});
 		}
 	}

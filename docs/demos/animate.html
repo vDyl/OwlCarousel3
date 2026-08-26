@@ -9,7 +9,7 @@
 <meta name="description" content="Animate carousel">
 
 <title>
-  Animate Demo | Owl Carousel 3 | 3.0.3
+  Animate Demo | Owl Carousel 3 | 3.0.4
 </title>
 
 
@@ -79,13 +79,20 @@
 </blockquote>
 <h3>Important</h3>
 <p>Animate effects work only with <code>items:1</code> and in browsers that support CSS animations and transitions. They apply to programmatic navigation such as dots, arrows, autoplay, and API calls. During drag or swipe, Owl follows the pointer directly and intentionally skips these effects.</p>
-<h3>How to use additional animation from <code>animate.css</code> library</h3>
-<p>This demo includes the legacy-compatible Animate.css stylesheet whose class names do not use the newer <code>animate__</code> prefix.</p>
+<h3>How to use additional animations from Animate.css</h3>
+<p>Visit the <a href="https://animate.style/">Animate.css website</a> to browse the available animations and usage documentation. Owl&#39;s traditional unprefixed animation option values work with the Animate.css 4 compatibility build.</p>
 <ol>
-<li>Include the compatible Animate.css stylesheet in the page header.</li>
-<li>Set <code>animateOut</code> and <code>animateIn</code> to class names provided by that stylesheet.</li>
-<li>When using current Animate.css releases, ensure your integration provides the animation class names and base timing styles expected by Owl.</li>
+<li>Include the pinned compatibility stylesheet from jsDelivr in the page header:</li>
 </ol>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.compat.css&quot;&gt;
+</code></pre>
+<ol start="2">
+<li>Set <code>animateOut</code> and <code>animateIn</code> to class names provided by that stylesheet.</li>
+</ol>
+<p>The compatibility build uses familiar unprefixed names such as <code>slideOutDown</code> and <code>flipInX</code>. For the standard prefixed build, load:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css&quot;&gt;
+</code></pre>
+<p>Then use names such as <code>animate__slideOutDown</code> and <code>animate__flipInX</code>.</p>
 <pre><code class="language-javascript">$(&#39;.custom1&#39;).owlCarousel({
 	animateOut: &#39;slideOutDown&#39;,
 	animateIn: &#39;flipInX&#39;,

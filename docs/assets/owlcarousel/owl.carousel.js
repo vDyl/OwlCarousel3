@@ -1,9 +1,11 @@
-/*! Owl Carousel v3.0.3 | MIT License */
+/*! Owl Carousel v3.0.4 | MIT License */
 
 (function() {
   // src/js/owl.carousel.js
   (function($, window2, document2, undefined) {
     function Owl(element, options) {
+      Owl._instanceId = (Owl._instanceId || 0) + 1;
+      this._dragEventNamespace = ".owl.core.owl" + Owl._instanceId;
       this.settings = null;
       this.options = $.extend({}, Owl.Defaults, options);
       this.$element = $(element);
@@ -39,7 +41,7 @@
           "dragging": ["interacting"]
         }
       };
-      $.each(["onResize", "onThrottledResize"], $.proxy(function(i, handler) {
+      $.each(["onResize", "onThrottledResize", "onDragEnd", "onDragMove", "onDragMoveStart"], $.proxy(function(i, handler) {
         this._handlers[handler] = $.proxy(this[handler], this);
       }, this));
       $.each(Owl.Plugins, $.proxy(function(key, plugin) {
@@ -87,7 +89,7 @@
       loadedClass: "owl-loaded",
       loadingClass: "owl-loading",
       rtlClass: "owl-rtl",
-      responsiveClass: "owl-responsive",
+      responsiveClass: false,
       dragClass: "owl-drag",
       itemClass: "owl-item",
       stageClass: "owl-stage",
@@ -302,10 +304,10 @@
         }
         delete settings.responsive;
         if (settings.responsiveClass) {
-          this.$element.attr(
-            "class",
-            this.$element.attr("class").replace(new RegExp("(" + this.options.responsiveClass + "-)\\S+\\s", "g"), "$1" + match)
-          );
+          var responsiveClass = typeof settings.responsiveClass === "string" ? settings.responsiveClass : "owl-responsive";
+          var responsivePattern = new RegExp("(^|\\s)" + responsiveClass.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "-\\S+", "g");
+          var className = (this.$element.attr("class") || "").replace(responsivePattern, "");
+          this.$element.attr("class", (className + " " + responsiveClass + "-" + match).replace(/\s+/g, " ").replace(/^\s+|\s+$/g, ""));
         }
       }
       this.trigger("change", { property: { name: "settings", value: settings } });
@@ -375,9 +377,6 @@
       if (!this._items.length) {
         return false;
       }
-      if (this._width === this.$element.width()) {
-        return false;
-      }
       if (!this.isVisible()) {
         return false;
       }
@@ -439,17 +438,18 @@
       this._drag.stage.start = stage;
       this._drag.stage.current = stage;
       this._drag.pointer = this.pointer(event);
-      $(document2).on("mouseup.owl.core touchend.owl.core", $.proxy(this.onDragEnd, this));
-      $(document2).one("mousemove.owl.core touchmove.owl.core", $.proxy(function(event2) {
-        var delta = this.difference(this._drag.pointer, this.pointer(event2));
-        $(document2).on("mousemove.owl.core touchmove.owl.core", $.proxy(this.onDragMove, this));
-        if (Math.abs(delta.x) < Math.abs(delta.y) && this.is("valid")) {
-          return;
-        }
-        event2.preventDefault();
-        this.enter("dragging");
-        this.trigger("drag");
-      }, this));
+      $(document2).on("mouseup" + this._dragEventNamespace + " touchend" + this._dragEventNamespace, this._handlers.onDragEnd);
+      $(document2).one("mousemove" + this._dragEventNamespace + " touchmove" + this._dragEventNamespace, this._handlers.onDragMoveStart);
+    };
+    Owl.prototype.onDragMoveStart = function(event) {
+      var delta = this.difference(this._drag.pointer, this.pointer(event));
+      $(document2).on("mousemove" + this._dragEventNamespace + " touchmove" + this._dragEventNamespace, this._handlers.onDragMove);
+      if (Math.abs(delta.x) < Math.abs(delta.y) && this.is("valid")) {
+        return;
+      }
+      event.preventDefault();
+      this.enter("dragging");
+      this.trigger("drag");
     };
     Owl.prototype.onDragMove = function(event) {
       var minimum = null, maximum = null, pull = null, delta = this.difference(this._drag.pointer, this.pointer(event)), stage = this.difference(this._drag.stage.start, delta);
@@ -472,7 +472,7 @@
     };
     Owl.prototype.onDragEnd = function(event) {
       var delta = this.difference(this._drag.pointer, this.pointer(event)), stage = this._drag.stage.current, direction = delta.x > 0 ^ this.settings.rtl ? "left" : "right";
-      $(document2).off(".owl.core");
+      this.removeDragHandlers();
       this.$element.removeClass(this.options.grabClass);
       if (delta.x !== 0 && this.is("dragging") || !this.is("valid")) {
         this.speed(this.settings.dragEndSpeed || this.settings.smartSpeed);
@@ -491,6 +491,9 @@
       }
       this.leave("dragging");
       this.trigger("dragged");
+    };
+    Owl.prototype.removeDragHandlers = function() {
+      $(document2).off(this._dragEventNamespace);
     };
     Owl.prototype.closest = function(coordinate, direction) {
       var position = -1, pull = 30, width = this.width(), count = this.settings.items, itemWidth = Math.round(width / count), coordinates = this.coordinates();
@@ -793,9 +796,11 @@
       images.each($.proxy(function(i, element) {
         this.enter("pre-loading");
         element = $(element);
-        $(new Image()).one("load", $.proxy(function(e) {
-          element.attr("src", e.target.src);
-          element.css("opacity", 1);
+        $(new Image()).one("load error", $.proxy(function(e) {
+          if (e.type === "load") {
+            element.attr("src", e.target.src);
+            element.css("opacity", 1);
+          }
           this.leave("pre-loading");
           !this.is("pre-loading") && !this.is("initializing") && this.refresh();
         }, this)).attr("src", window2.devicePixelRatio > 1 ? element.attr("data-src-retina") : element.attr("data-src") || element.attr("src"));
@@ -805,7 +810,7 @@
       var responsiveClass;
       this.$element.off(".owl.core");
       this.$stage.off(".owl.core");
-      $(document2).off(".owl.core");
+      this.removeDragHandlers();
       if (this.settings.responsive !== false) {
         window2.clearTimeout(this.resizeTimer);
         this.off(window2, "resize", this._handlers.onThrottledResize);
@@ -818,7 +823,8 @@
       this.$stage.children().contents().unwrap();
       this.$stage.children().unwrap();
       this.$stage.remove();
-      responsiveClass = new RegExp("(^|\\s)" + this.options.responsiveClass.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "-\\S+", "g");
+      responsiveClass = typeof this.options.responsiveClass === "string" ? this.options.responsiveClass : "owl-responsive";
+      responsiveClass = new RegExp("(^|\\s)" + responsiveClass.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "-\\S+", "g");
       this.$element.removeClass(this.options.refreshClass).removeClass(this.options.loadingClass).removeClass(this.options.loadedClass).removeClass(this.options.rtlClass).removeClass(this.options.dragClass).removeClass(this.options.grabClass).attr("class", (this.$element.attr("class") || "").replace(responsiveClass, "").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "")).removeData("owl.carousel");
     };
     Owl.prototype.op = function(a, o, b) {
@@ -1075,22 +1081,35 @@
       lazyLoadEager: 0
     };
     Lazy.prototype.load = function(position) {
-      var $item = this._core.$stage.children().eq(position), $elements = $item && $item.find(".owl-lazy");
+      var $item = this._core.$stage.children().eq(position), $elements = $item && $item.find(".owl-lazy"), markFailed = $.proxy(function() {
+        if (!this._loaded) {
+          return;
+        }
+        this._loaded = $.grep(this._loaded, function(item) {
+          return item !== $item.get(0);
+        });
+      }, this);
       if (!$elements || $.inArray($item.get(0), this._loaded) > -1) {
         return;
       }
+      this._loaded.push($item.get(0));
       $elements.each($.proxy(function(index, element) {
-        var $element = $(element), image, url = window2.devicePixelRatio > 1 && $element.attr("data-src-retina") || $element.attr("data-src") || $element.attr("data-srcset");
+        var $element = $(element), image, failed = function() {
+          $element.off(".owl.lazy");
+          markFailed();
+        }, url = window2.devicePixelRatio > 1 && $element.attr("data-src-retina") || $element.attr("data-src") || $element.attr("data-srcset");
+        if (!url) {
+          markFailed();
+          return;
+        }
         this._core.trigger("load", { element: $element, url: url }, "lazy");
         if ($element.is("img")) {
           $element.one("load.owl.lazy", $.proxy(function() {
             $element.css("opacity", 1);
             this._core.trigger("loaded", { element: $element, url: url }, "lazy");
-          }, this)).attr("src", url);
+          }, this)).one("error.owl.lazy", failed).attr("src", url);
         } else if ($element.is("source")) {
-          $element.one("load.owl.lazy", $.proxy(function() {
-            this._core.trigger("loaded", { element: $element, url: url }, "lazy");
-          }, this)).attr("srcset", url);
+          $element.attr("srcset", url);
         } else {
           image = new Image();
           image.onload = $.proxy(function() {
@@ -1100,10 +1119,10 @@
             });
             this._core.trigger("loaded", { element: $element, url: url }, "lazy");
           }, this);
+          image.onerror = failed;
           image.src = url;
         }
       }, this));
-      this._loaded.push($item.get(0));
     };
     Lazy.prototype.destroy = function() {
       var handler, property;
@@ -1584,7 +1603,7 @@
       this._handlers = {
         "prepared.owl.carousel": $.proxy(function(e) {
           if (e.namespace && this._core.settings.dotsData) {
-            this._templates.push('<div class="' + this._core.settings.dotClass + '">' + $(e.content).find("[data-dot]").addBack("[data-dot]").attr("data-dot") + "</div>");
+            this._templates.push('<button type="button" class="' + this._core.settings.dotClass + '">' + $(e.content).find("[data-dot]").addBack("[data-dot]").attr("data-dot") + "</button>");
           }
         }, this),
         "added.owl.carousel": $.proxy(function(e) {
@@ -1631,7 +1650,7 @@
         '<span aria-label="Next">&#x203a;</span>'
       ],
       navSpeed: false,
-      navElement: 'button type="button" role="presentation"',
+      navElement: 'button type="button"',
       navContainer: false,
       navContainerClass: "owl-nav",
       navClass: [
@@ -1657,7 +1676,7 @@
         this.next(settings.navSpeed);
       }, this));
       if (!settings.dotsData) {
-        this._templates = [$('<button role="button">').addClass(settings.dotClass).append($("<span>")).prop("outerHTML")];
+        this._templates = [$('<button type="button">').addClass(settings.dotClass).append($("<span>")).prop("outerHTML")];
       }
       this._controls.$absolute = (settings.dotsContainer ? $(settings.dotsContainer) : $("<div>").addClass(settings.dotsClass).appendTo(this.$element)).addClass("disabled");
       this._controls.$absolute.on("click", "button", $.proxy(function(e) {
@@ -1717,8 +1736,9 @@
       var difference, settings = this._core.settings, disabled = this._core.items().length <= settings.items, index = this._core.relative(this._core.current()), loop = settings.loop || settings.rewind;
       this._controls.$relative.toggleClass("disabled", !settings.nav || disabled);
       if (settings.nav) {
-        this._controls.$previous.toggleClass("disabled", !loop && index <= this._core.minimum(true));
-        this._controls.$next.toggleClass("disabled", !loop && index >= this._core.maximum(true));
+        var previousDisabled = !loop && index <= this._core.minimum(true), nextDisabled = !loop && index >= this._core.maximum(true);
+        this._controls.$previous.toggleClass("disabled", previousDisabled).prop("disabled", previousDisabled);
+        this._controls.$next.toggleClass("disabled", nextDisabled).prop("disabled", nextDisabled);
       }
       this._controls.$absolute.toggleClass("disabled", !settings.dots || disabled);
       if (settings.dots) {
@@ -1731,7 +1751,9 @@
           this._controls.$absolute.children().slice(difference).remove();
         }
         this._controls.$absolute.find(".active").removeClass("active");
-        this._controls.$absolute.children().eq($.inArray(this.current(), this._pages)).addClass("active");
+        this._controls.$absolute.children().each(function(dotIndex) {
+          $(this).attr("aria-label", "Go to slide " + (dotIndex + 1)).removeAttr("aria-current");
+        }).eq($.inArray(this.current(), this._pages)).addClass("active").attr("aria-current", "true");
       }
     };
     Navigation.prototype.onTrigger = function(event) {

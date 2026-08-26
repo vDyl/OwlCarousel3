@@ -9,7 +9,7 @@
 <meta name="description" content="Owl Carousel Documentation">
 
 <title>
-  Classes | Owl Carousel 3 | 3.0.3
+  Classes | Owl Carousel 3 | 3.0.4
 </title>
 
 
@@ -108,13 +108,13 @@
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;owl-nav&quot;&gt;
-        &lt;button type=&quot;button&quot; role=&quot;presentation&quot; class=&quot;owl-prev&quot;&gt;prev&lt;/button&gt;
-        &lt;button type=&quot;button&quot; role=&quot;presentation&quot; class=&quot;owl-next&quot;&gt;next&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;owl-prev&quot;&gt;prev&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;owl-next&quot;&gt;next&lt;/button&gt;
     &lt;/div&gt;
     &lt;div class=&quot;owl-dots&quot;&gt;
-        &lt;button role=&quot;button&quot; class=&quot;owl-dot active&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
-        &lt;button role=&quot;button&quot; class=&quot;owl-dot&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
-        &lt;button role=&quot;button&quot; class=&quot;owl-dot&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;owl-dot active&quot; aria-label=&quot;Go to slide 1&quot; aria-current=&quot;true&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;owl-dot&quot; aria-label=&quot;Go to slide 2&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;owl-dot&quot; aria-label=&quot;Go to slide 3&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
@@ -190,9 +190,9 @@ Default: <code>owl-height</code></p>
 <p>Auto height class.</p>
 <hr>
 <h4>responsiveClass</h4>
-<p>Type: <code>String</code><br />
-Default: <code>owl-responsive</code></p>
-<p>Optional helper class. Add &#x27;&lt;responsiveClass&gt;-&lt;breakpoint&gt;&#x27; class to main element. Can be used to stylize content on given breakpoint.</p>
+<p>Type: <code>Boolean|String</code><br />
+Default: <code>false</code></p>
+<p>Optional helper class. Use true for &#x27;owl-responsive-&lt;breakpoint&gt;&#x27; or provide a custom class prefix.</p>
 <hr>
 <h3>Next Step</h3>
 <p>####<a href="api-events.html">Events</a></p>

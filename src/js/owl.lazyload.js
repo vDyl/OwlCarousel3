@@ -1,6 +1,6 @@
 /**
  * Lazy Plugin
- * @version 3.0.2
+ * @version 3.0.4
  * @license The MIT License (MIT)
  */
 ;(function($, window, document, undefined) {
@@ -95,15 +95,34 @@
 	 */
 	Lazy.prototype.load = function(position) {
 		var $item = this._core.$stage.children().eq(position),
-			$elements = $item && $item.find('.owl-lazy');
+			$elements = $item && $item.find('.owl-lazy'),
+			markFailed = $.proxy(function() {
+				if (!this._loaded) {
+					return;
+				}
+				this._loaded = $.grep(this._loaded, function(item) {
+					return item !== $item.get(0);
+				});
+			}, this);
 
 		if (!$elements || $.inArray($item.get(0), this._loaded) > -1) {
 			return;
 		}
 
+		this._loaded.push($item.get(0));
+
 		$elements.each($.proxy(function(index, element) {
 			var $element = $(element), image,
-                url = (window.devicePixelRatio > 1 && $element.attr('data-src-retina')) || $element.attr('data-src') || $element.attr('data-srcset');
+				failed = function() {
+					$element.off('.owl.lazy');
+					markFailed();
+				},
+				url = (window.devicePixelRatio > 1 && $element.attr('data-src-retina')) || $element.attr('data-src') || $element.attr('data-srcset');
+
+			if (!url) {
+				markFailed();
+				return;
+			}
 
 			this._core.trigger('load', { element: $element, url: url }, 'lazy');
 
@@ -111,11 +130,9 @@
 				$element.one('load.owl.lazy', $.proxy(function() {
 					$element.css('opacity', 1);
 					this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
-				}, this)).attr('src', url);
-            } else if ($element.is('source')) {
-                $element.one('load.owl.lazy', $.proxy(function() {
-                    this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
-                }, this)).attr('srcset', url);
+				}, this)).one('error.owl.lazy', failed).attr('src', url);
+			} else if ($element.is('source')) {
+				$element.attr('srcset', url);
 			} else {
 				image = new Image();
 				image.onload = $.proxy(function() {
@@ -125,11 +142,11 @@
 					});
 					this._core.trigger('loaded', { element: $element, url: url }, 'lazy');
 				}, this);
+				image.onerror = failed;
 				image.src = url;
 			}
 		}, this));
 
-		this._loaded.push($item.get(0));
 	};
 
 	/**

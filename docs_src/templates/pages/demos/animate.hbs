@@ -24,13 +24,25 @@ animateOut: 'fadeOut'
 ### Important
 Animate effects work only with `items:1` and in browsers that support CSS animations and transitions. They apply to programmatic navigation such as dots, arrows, autoplay, and API calls. During drag or swipe, Owl follows the pointer directly and intentionally skips these effects.
 
-### How to use additional animation from `animate.css` library
+### How to use additional animations from Animate.css
 
-This demo includes the legacy-compatible Animate.css stylesheet whose class names do not use the newer `animate__` prefix.
+Visit the [Animate.css website](https://animate.style/) to browse the available animations and usage documentation. Owl's traditional unprefixed animation option values work with the Animate.css 4 compatibility build.
 
-1. Include the compatible Animate.css stylesheet in the page header.
+1. Include the pinned compatibility stylesheet from jsDelivr in the page header:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.compat.css">
+```
+
 2. Set `animateOut` and `animateIn` to class names provided by that stylesheet.
-3. When using current Animate.css releases, ensure your integration provides the animation class names and base timing styles expected by Owl.
+
+The compatibility build uses familiar unprefixed names such as `slideOutDown` and `flipInX`. For the standard prefixed build, load:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+```
+
+Then use names such as `animate__slideOutDown` and `animate__flipInX`.
 
 ```javascript
 $('.custom1').owlCarousel({

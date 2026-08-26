@@ -1,6 +1,6 @@
 /**
  * Navigation Plugin
- * @version 3.0.2
+ * @version 3.0.4
  * @license The MIT License (MIT)
  */
 ;(function($, window, document, undefined) {
@@ -72,8 +72,8 @@
 		this._handlers = {
 			'prepared.owl.carousel': $.proxy(function(e) {
 				if (e.namespace && this._core.settings.dotsData) {
-					this._templates.push('<div class="' + this._core.settings.dotClass + '">' +
-						$(e.content).find('[data-dot]').addBack('[data-dot]').attr('data-dot') + '</div>');
+					this._templates.push('<button type="button" class="' + this._core.settings.dotClass + '">' +
+						$(e.content).find('[data-dot]').addBack('[data-dot]').attr('data-dot') + '</button>');
 				}
 			}, this),
 			'added.owl.carousel': $.proxy(function(e) {
@@ -130,7 +130,7 @@
 			'<span aria-label="' + 'Next' + '">&#x203a;</span>'
 		],
 		navSpeed: false,
-		navElement: 'button type="button" role="presentation"',
+		navElement: 'button type="button"',
 		navContainer: false,
 		navContainerClass: 'owl-nav',
 		navClass: [
@@ -176,7 +176,7 @@
 
 		// create DOM structure for absolute navigation
 		if (!settings.dotsData) {
-			this._templates = [ $('<button role="button">')
+			this._templates = [ $('<button type="button">')
 				.addClass(settings.dotClass)
 				.append($('<span>'))
 				.prop('outerHTML') ];
@@ -279,8 +279,10 @@
 		this._controls.$relative.toggleClass('disabled', !settings.nav || disabled);
 
 		if (settings.nav) {
-			this._controls.$previous.toggleClass('disabled', !loop && index <= this._core.minimum(true));
-			this._controls.$next.toggleClass('disabled', !loop && index >= this._core.maximum(true));
+			var previousDisabled = !loop && index <= this._core.minimum(true),
+				nextDisabled = !loop && index >= this._core.maximum(true);
+			this._controls.$previous.toggleClass('disabled', previousDisabled).prop('disabled', previousDisabled);
+			this._controls.$next.toggleClass('disabled', nextDisabled).prop('disabled', nextDisabled);
 		}
 
 		this._controls.$absolute.toggleClass('disabled', !settings.dots || disabled);
@@ -297,7 +299,11 @@
 			}
 
 			this._controls.$absolute.find('.active').removeClass('active');
-			this._controls.$absolute.children().eq($.inArray(this.current(), this._pages)).addClass('active');
+			this._controls.$absolute.children()
+				.each(function(dotIndex) {
+					$(this).attr('aria-label', 'Go to slide ' + (dotIndex + 1)).removeAttr('aria-current');
+				})
+				.eq($.inArray(this.current(), this._pages)).addClass('active').attr('aria-current', 'true');
 		}
 	};
 

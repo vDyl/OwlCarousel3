@@ -1,6 +1,6 @@
 /**
  * Owl carousel
- * @version 3.0.2
+ * @version 3.0.4
  * @license The MIT License (MIT)
  * @todo Lazy Load Icon
  * @todo prevent animationend bubling
@@ -17,6 +17,8 @@
 	 * @param {Object} [options] - The options
 	 */
 	function Owl(element, options) {
+		Owl._instanceId = (Owl._instanceId || 0) + 1;
+		this._dragEventNamespace = '.owl.core.owl' + Owl._instanceId;
 
 		/**
 		 * Current settings for the carousel.
@@ -151,7 +153,7 @@
 			}
 		};
 
-		$.each([ 'onResize', 'onThrottledResize' ], $.proxy(function(i, handler) {
+		$.each([ 'onResize', 'onThrottledResize', 'onDragEnd', 'onDragMove', 'onDragMoveStart' ], $.proxy(function(i, handler) {
 			this._handlers[handler] = $.proxy(this[handler], this);
 		}, this));
 
@@ -218,7 +220,7 @@
 		loadedClass: 'owl-loaded',
 		loadingClass: 'owl-loading',
 		rtlClass: 'owl-rtl',
-		responsiveClass: 'owl-responsive',
+		responsiveClass: false,
 		dragClass: 'owl-drag',
 		itemClass: 'owl-item',
 		stageClass: 'owl-stage',
@@ -566,9 +568,12 @@
 
 			// responsive class
 			if (settings.responsiveClass) {
-				this.$element.attr('class',
-					this.$element.attr('class').replace(new RegExp('(' + this.options.responsiveClass + '-)\\S+\\s', 'g'), '$1' + match)
-				);
+				var responsiveClass = typeof settings.responsiveClass === 'string'
+					? settings.responsiveClass : 'owl-responsive';
+				var responsivePattern = new RegExp('(^|\\s)' + responsiveClass.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '-\\S+', 'g');
+				var className = (this.$element.attr('class') || '').replace(responsivePattern, '');
+				this.$element.attr('class', (className + ' ' + responsiveClass + '-' + match)
+					.replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, ''));
 			}
 		}
 
@@ -696,10 +701,6 @@
 			return false;
 		}
 
-		if (this._width === this.$element.width()) {
-			return false;
-		}
-
 		if (!this.isVisible()) {
 			return false;
 		}
@@ -791,22 +792,22 @@
 		this._drag.stage.current = stage;
 		this._drag.pointer = this.pointer(event);
 
-		$(document).on('mouseup.owl.core touchend.owl.core', $.proxy(this.onDragEnd, this));
+		$(document).on('mouseup' + this._dragEventNamespace + ' touchend' + this._dragEventNamespace, this._handlers.onDragEnd);
+		$(document).one('mousemove' + this._dragEventNamespace + ' touchmove' + this._dragEventNamespace, this._handlers.onDragMoveStart);
+	};
 
-		$(document).one('mousemove.owl.core touchmove.owl.core', $.proxy(function(event) {
-			var delta = this.difference(this._drag.pointer, this.pointer(event));
+	Owl.prototype.onDragMoveStart = function(event) {
+		var delta = this.difference(this._drag.pointer, this.pointer(event));
 
-			$(document).on('mousemove.owl.core touchmove.owl.core', $.proxy(this.onDragMove, this));
+		$(document).on('mousemove' + this._dragEventNamespace + ' touchmove' + this._dragEventNamespace, this._handlers.onDragMove);
 
-			if (Math.abs(delta.x) < Math.abs(delta.y) && this.is('valid')) {
-				return;
-			}
+		if (Math.abs(delta.x) < Math.abs(delta.y) && this.is('valid')) {
+			return;
+		}
 
-			event.preventDefault();
-
-			this.enter('dragging');
-			this.trigger('drag');
-		}, this));
+		event.preventDefault();
+		this.enter('dragging');
+		this.trigger('drag');
 	};
 
 	/**
@@ -856,7 +857,7 @@
 			stage = this._drag.stage.current,
 			direction = delta.x > 0 ^ this.settings.rtl ? 'left' : 'right';
 
-		$(document).off('.owl.core');
+		this.removeDragHandlers();
 
 		this.$element.removeClass(this.options.grabClass);
 
@@ -879,6 +880,10 @@
 
 		this.leave('dragging');
 		this.trigger('dragged');
+	};
+
+	Owl.prototype.removeDragHandlers = function() {
+		$(document).off(this._dragEventNamespace);
 	};
 
 	/**
@@ -1436,9 +1441,11 @@
 		images.each($.proxy(function(i, element) {
 			this.enter('pre-loading');
 			element = $(element);
-			$(new Image()).one('load', $.proxy(function(e) {
-				element.attr('src', e.target.src);
-				element.css('opacity', 1);
+			$(new Image()).one('load error', $.proxy(function(e) {
+				if (e.type === 'load') {
+					element.attr('src', e.target.src);
+					element.css('opacity', 1);
+				}
 				this.leave('pre-loading');
 				!this.is('pre-loading') && !this.is('initializing') && this.refresh();
 			}, this)).attr('src', (window.devicePixelRatio > 1) ? element.attr('data-src-retina') : element.attr('data-src') || element.attr('src'));
@@ -1454,7 +1461,7 @@
 
 		this.$element.off('.owl.core');
 		this.$stage.off('.owl.core');
-		$(document).off('.owl.core');
+		this.removeDragHandlers();
 
 		if (this.settings.responsive !== false) {
 			window.clearTimeout(this.resizeTimer);
@@ -1471,7 +1478,9 @@
 		this.$stage.children().contents().unwrap();
 		this.$stage.children().unwrap();
 		this.$stage.remove();
-		responsiveClass = new RegExp('(^|\\s)' + this.options.responsiveClass.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '-\\S+', 'g');
+		responsiveClass = typeof this.options.responsiveClass === 'string'
+			? this.options.responsiveClass : 'owl-responsive';
+		responsiveClass = new RegExp('(^|\\s)' + responsiveClass.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '-\\S+', 'g');
 
 		this.$element
 			.removeClass(this.options.refreshClass)

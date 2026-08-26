@@ -75,6 +75,21 @@ QUnit.test('load assigns the configured source to a lazy image once', function(a
 	assert.strictEqual(plugin._loaded.length, 1, 'Loading the same item again is ignored.');
 });
 
+QUnit.test('a failed lazy image can be retried', function(assert) {
+	var done = assert.async(),
+		fixture = createCarousel('<div><img class="owl-lazy" data-src="invalid://missing-image"></div>', { lazyLoad: true, items: 1 }),
+		plugin = fixture.core._plugins.lazy,
+		item = fixture.core.$stage.children().eq(fixture.core.current());
+
+	plugin.load(item.index());
+	item.find('.owl-lazy').one('error', function() {
+		assert.strictEqual(plugin._loaded.length, 0, 'A failed item is removed from the loaded cache.');
+		plugin.load(item.index());
+		assert.strictEqual(plugin._loaded.length, 1, 'The failed item can start another load attempt.');
+		done();
+	});
+});
+
 QUnit.test('destroy removes lazy-load event handlers', function(assert) {
 	var fixture = createCarousel('<div><img class="owl-lazy" data-src="image.png"></div>', { lazyLoad: true }),
 		events;
@@ -134,11 +149,12 @@ QUnit.test('data video IDs work without href and invalid URLs fail clearly', fun
 	var fixture = createCarousel('<div><a class="owl-video" data-youtube-id="data123"><img src="thumbnail.png"></a></div>', {
 		items: 1,
 		video: true
-	});
+	}),
+		plugin = fixture.core._plugins.video;
 
 	assert.strictEqual(fixture.core._plugins.video._videos['https://www.youtube.com/watch?v=data123'].id, 'data123', 'A data-youtube-id is sufficient.');
 	assert.throws(function() {
-		createCarousel('<div><a class="owl-video" href="https://example.com/video"></a></div>', { video: true });
+		plugin.fetch($('<a class="owl-video" href="https://example.com/video"></a>'), fixture.core.items(0));
 	}, /Video URL not supported/, 'An unsupported URL produces the documented error.');
 });
 
@@ -154,7 +170,7 @@ QUnit.test('clear removes animation state and completes the transition', functio
 	item.css('left', '10px').addClass('animated owl-animated-in owl-animated-out flipInX slideOutDown');
 	plugin.clear({ target: item.get(0) });
 
-	assert.strictEqual(item.css('left'), 'auto', 'The temporary position is cleared.');
+	assert.strictEqual(item.get(0).style.left, '', 'The temporary inline position is cleared.');
 	assert.notOk(item.is('.animated, .owl-animated-in, .owl-animated-out, .flipInX, .slideOutDown'), 'Animation classes are removed.');
 	assert.strictEqual(completed, 1, 'The core transition is completed.');
 });
@@ -184,6 +200,10 @@ QUnit.test('initialization creates navigation controls and pages', function(asse
 	assert.strictEqual(fixture.element.find('.owl-next').length, 1, 'A next button is created.');
 	assert.strictEqual(fixture.element.find('.owl-dot').length, 3, 'A dot is created for every page.');
 	assert.strictEqual(plugin._pages.length, 3, 'The page model matches the carousel items.');
+	assert.strictEqual(fixture.element.find('.owl-prev').attr('role'), undefined, 'Previous keeps its native button semantics.');
+	assert.ok(fixture.element.find('.owl-prev').prop('disabled'), 'Unavailable previous navigation is natively disabled.');
+	assert.strictEqual(fixture.element.find('.owl-dot').first().attr('aria-label'), 'Go to slide 1', 'Dots have accessible names.');
+	assert.strictEqual(fixture.element.find('.owl-dot').first().attr('aria-current'), 'true', 'The active dot identifies the current slide.');
 });
 
 QUnit.test('destroy restores the core navigation methods', function(assert) {
@@ -238,6 +258,21 @@ QUnit.test('destroy removes a responsive class even when it is last', function(a
 	fixture.element.addClass('owl-responsive-600');
 	fixture.element.owlCarousel('destroy');
 	assert.notOk(fixture.element.hasClass('owl-responsive-600'), 'The responsive class is removed.');
+});
+
+QUnit.test('destroying one carousel preserves another carousel drag handlers', function(assert) {
+	var first = createCarousel(),
+		second = createCarousel(),
+		start = $.Event('mousedown', { which: 1, pageX: 20, pageY: 10, target: second.core.$stage.get(0) }),
+		events;
+
+	second.core.onDragStart(start);
+	first.element.owlCarousel('destroy');
+	events = $._data(document, 'events') || {};
+	assert.ok($.grep(events.mouseup || [], function(handler) {
+		return handler.handler === second.core._handlers.onDragEnd;
+	}).length, 'The remaining carousel retains its drag-end handler.');
+	second.element.owlCarousel('destroy');
 });
 
 QUnit.test('destroy releases plugin references', function(assert) {
