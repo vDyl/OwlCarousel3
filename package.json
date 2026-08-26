@@ -42,7 +42,7 @@
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.62.1",
     "autoprefixer": "^10.5.4",
-    "cssnano": "^8.0.8",
+    "cssnano": "7.1.9",
     "esbuild": "^0.28.2",
     "handlebars": "^4.7.9",
     "highlight.js": "^11.12.0",
