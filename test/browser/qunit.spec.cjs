@@ -14,7 +14,8 @@ for (const page of pages) {
 				await browserPage.waitForFunction(() => window.__qunitDone, { timeout: 10000 })
 					.catch(() => { throw new Error(errors.join('\n') || 'QUnit did not render a result.'); });
 				const result = await browserPage.evaluate(() => window.__qunitResult);
-				expect(result.failed).toBe(0);
+				const failures = await browserPage.evaluate(() => window.__qunitFailures);
+				expect(result.failed, failures.join('\n')).toBe(0);
 				expect(result.total).toBe(87);
 				expect(await browserPage.evaluate(() => window.__qunitTestCount)).toBe(31);
 				await expect(browserPage.locator('#qunit')).toContainText(/\b0 failed\b/);

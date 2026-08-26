@@ -68,7 +68,7 @@ test('navigation supports keyboard use, looping, RTL, and dynamic items', async 
 		element.trigger('add.owl.carousel', [ '<div>Fourth slide</div>' ]);
 		element.trigger('refresh.owl.carousel');
 	});
-	expect(await page.locator('#interaction-carousel .owl-item:not(.cloned)')).toHaveCount(4);
+	await expect(page.locator('#interaction-carousel .owl-item:not(.cloned)')).toHaveCount(4);
 
 	for (let index = 0; index < 4; index++) {
 		await page.locator('#interaction-carousel .owl-next').click();
@@ -83,7 +83,7 @@ test('navigation supports keyboard use, looping, RTL, and dynamic items', async 
 		element.trigger('remove.owl.carousel', [ 3 ]);
 		element.trigger('refresh.owl.carousel');
 	});
-	expect(await page.locator('#interaction-carousel .owl-item:not(.cloned)')).toHaveCount(3);
+	await expect(page.locator('#interaction-carousel .owl-item:not(.cloned)')).toHaveCount(3);
 });
 
 test('generated carousel controls pass an automated accessibility audit', async ({ page }) => {
