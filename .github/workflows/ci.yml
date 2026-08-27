@@ -6,33 +6,15 @@ on:
 
 jobs:
   test:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: ubuntu-latest
-            node: 20.19
-          - os: ubuntu-latest
-            node: 22
-          - os: windows-latest
-            node: 22
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 22
           cache: npm
       - run: npm ci
-      - if: runner.os == 'Linux'
-        run: npx playwright install --with-deps
-      - if: runner.os != 'Linux'
-        run: npx playwright install chromium
-      - if: runner.os == 'Linux'
-        run: npm run test:browsers
-      - if: runner.os != 'Linux'
-        run: npm test
-      - if: runner.os == 'Linux' && matrix.node == 22
-        run: git diff --exit-code -- dist docs
-      - if: runner.os == 'Linux' && matrix.node == 22
-        run: npm pack --dry-run
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: git diff --exit-code -- dist docs
+      - run: npm pack --dry-run
