@@ -1,6 +1,6 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { build } from 'esbuild';
+import { transform } from 'esbuild';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import postcss from 'postcss';
@@ -33,26 +33,23 @@ async function writeStylesheet(input, output) {
 await rm(dist, { recursive: true, force: true });
 await mkdir(assets, { recursive: true });
 
-await build({
-	entryPoints: [ resolve(root, 'build/entry.js') ],
-	bundle: true,
-	format: 'iife',
-	target: 'es5',
-	outfile: resolve(dist, 'owl.carousel.js'),
-	banner: { js: banner },
-	legalComments: 'none'
+const entrySource = await readFile(resolve(root, 'build/entry.js'), 'utf8');
+const sourcePaths = Array.from(entrySource.matchAll(/import\s+['"](.+?)['"];?/g), match =>
+	resolve(root, 'build', match[1]));
+
+if (!sourcePaths.length) {
+	throw new Error('No JavaScript sources found in build/entry.js.');
+}
+
+const javascript = (await Promise.all(sourcePaths.map(source => readFile(source, 'utf8')))).join('\n');
+const minifiedJavascript = await transform(javascript, {
+	legalComments: 'none',
+	minify: true,
+	target: 'es5'
 });
 
-await build({
-	entryPoints: [ resolve(root, 'build/entry.js') ],
-	bundle: true,
-	format: 'iife',
-	target: 'es5',
-	minify: true,
-	outfile: resolve(dist, 'owl.carousel.min.js'),
-	banner: { js: banner },
-	legalComments: 'none'
-});
+await writeFile(resolve(dist, 'owl.carousel.js'), banner + javascript);
+await writeFile(resolve(dist, 'owl.carousel.min.js'), banner + minifiedJavascript.code);
 
 await Promise.all(stylesheets.map(([ input, output ]) => writeStylesheet(input, output)));
 await cp(resolve(root, 'src/img'), assets, { recursive: true });

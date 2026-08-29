@@ -1,6 +1,6 @@
 /**
  * Navigation Plugin
- * @version 3.0.4
+ * @version 3.1.0
  * @license The MIT License (MIT)
  */
 ;(function($, window, document, undefined) {
@@ -126,8 +126,12 @@
 	Navigation.Defaults = {
 		nav: false,
 		navText: [
-			'<span aria-label="' + 'Previous' + '">&#x2039;</span>',
-			'<span aria-label="' + 'Next' + '">&#x203a;</span>'
+			'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6"/></svg>',
+			'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6"/></svg>'
+		],
+		navLabels: [
+			'Previous',
+			'Next'
 		],
 		navSpeed: false,
 		navElement: 'button type="button"',
@@ -137,6 +141,7 @@
 			'owl-prev',
 			'owl-next'
 		],
+		navPosition: 'bottom',
 		slideBy: 1,
 		dotClass: 'owl-dot',
 		dotsClass: 'owl-dots',
@@ -161,6 +166,7 @@
 
 		this._controls.$previous = $('<' + settings.navElement + '>')
 			.addClass(settings.navClass[0])
+			.attr('aria-label', settings.navLabels[0])
 			.html(settings.navText[0])
 			.prependTo(this._controls.$relative)
 			.on('click', $.proxy(function(e) {
@@ -168,6 +174,7 @@
 			}, this));
 		this._controls.$next = $('<' + settings.navElement + '>')
 			.addClass(settings.navClass[1])
+			.attr('aria-label', settings.navLabels[1])
 			.html(settings.navText[1])
 			.appendTo(this._controls.$relative)
 			.on('click', $.proxy(function(e) {
@@ -207,6 +214,7 @@
 	Navigation.prototype.destroy = function() {
 		var handler, control, property, override, settings;
 		settings = this._core.settings;
+		this.$element.removeClass('owl-nav-overlay owl-nav-outside');
 
 		for (handler in this._handlers) {
 			this.$element.off(handler, this._handlers[handler]);
@@ -275,6 +283,13 @@
 			disabled = this._core.items().length <= settings.items,
 			index = this._core.relative(this._core.current()),
 			loop = settings.loop || settings.rewind;
+
+		this.$element.toggleClass('owl-nav-overlay', settings.navPosition === 'overlay');
+		this.$element.toggleClass('owl-nav-outside', settings.navPosition === 'outside');
+		this._controls.$relative.css('top', !settings.navContainer &&
+			(settings.navPosition === 'overlay' || settings.navPosition === 'outside')
+			? this._core.$stage.parent().outerHeight() / 2
+			: '');
 
 		this._controls.$relative.toggleClass('disabled', !settings.nav || disabled);
 

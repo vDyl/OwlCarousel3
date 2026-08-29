@@ -1,7 +1,7 @@
 
 $owl-nav-color: #FFF !default;
 $owl-nav-color-hover: #FFF !default;
-$owl-nav-font-size: 14px !default;
+$owl-nav-font-size: 24px !default;
 $owl-nav-margin: 5px !default;
 $owl-nav-padding: 4px 7px !default;
 $owl-nav-rounded: 3px !default;
@@ -16,6 +16,96 @@ $owl-dot-background: #D6D6D6 !default;
 $owl-dot-background-active: #869791 !default;
 
 .owl-theme {
+	&.owl-nav-overlay {
+		.owl-nav {
+			left: 0;
+			margin-top: 0;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+			top: 50%; // Fallback until the navigation plugin measures the stage viewport.
+			transform: translateY(-50%);
+			z-index: 2;
+
+			.owl-prev,
+			.owl-next {
+				align-items: center;
+				display: flex;
+				height: 44px;
+				height: var(--owl-nav-size, 44px);
+				justify-content: center;
+				margin: 0;
+				min-width: 44px;
+				min-width: var(--owl-nav-size, 44px);
+				pointer-events: auto;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+
+			.owl-prev { left: 10px; left: var(--owl-nav-offset, 10px); }
+			.owl-next { right: 10px; right: var(--owl-nav-offset, 10px); }
+		}
+
+		&.owl-rtl .owl-nav {
+			.owl-prev { left: auto; right: 10px; right: var(--owl-nav-offset, 10px); }
+			.owl-next { left: 10px; left: var(--owl-nav-offset, 10px); right: auto; }
+		}
+	}
+
+	&.owl-nav-outside {
+		.owl-nav {
+			left: 0;
+			margin-top: 0;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+			top: 50%; // Fallback until the navigation plugin measures the stage viewport.
+			transform: translateY(-50%);
+			z-index: 2;
+
+			.owl-prev,
+			.owl-next {
+				align-items: center;
+				display: flex;
+				height: 44px;
+				height: var(--owl-nav-size, 44px);
+				justify-content: center;
+				margin: 0;
+				min-width: 44px;
+				min-width: var(--owl-nav-size, 44px);
+				pointer-events: auto;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+
+			.owl-prev {
+				left: -54px;
+				left: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+			}
+
+			.owl-next {
+				right: -54px;
+				right: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+			}
+		}
+
+		&.owl-rtl .owl-nav {
+			.owl-prev {
+				left: auto;
+				right: -54px;
+				right: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+			}
+
+			.owl-next {
+				left: -54px;
+				left: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+				right: auto;
+			}
+		}
+	}
+
 	// Styling Next and Prev buttons
 	.owl-nav {
 		margin-top: 10px;
@@ -24,19 +114,39 @@ $owl-dot-background-active: #869791 !default;
 
 		[class*='owl-'] {
 			color: $owl-nav-color;
+			color: var(--owl-nav-color, #{$owl-nav-color});
 			font-size: $owl-nav-font-size;
 			margin: $owl-nav-margin;
 			padding: $owl-nav-padding;
 			background: $owl-nav-background;
+			background: var(--owl-nav-background, #{$owl-nav-background});
 			display: inline-block;
 			cursor: pointer;
 			border-radius: $owl-nav-rounded;
 
 			&:hover {
 				background: $owl-nav-background-hover;
+				background: var(--owl-nav-background-hover, #{$owl-nav-background-hover});
 				color:$owl-nav-color-hover;
+				color: var(--owl-nav-color-hover, #{$owl-nav-color-hover});
 				text-decoration: none;
 			}
+		}
+
+		// Override the core button reset, whose selector is intentionally specific.
+		button[class*='owl-'] {
+			font-size: $owl-nav-font-size;
+		}
+
+		svg {
+			display: block;
+			fill: none;
+			height: 1em;
+			stroke: currentColor;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-width: 2.5;
+			width: 1em;
 		}
 		.disabled {
 			opacity: $owl-nav-disabled-opacity;

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- head -->
+<meta charset="utf-8">
+<meta name="msapplication-tap-highlight" content="no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<meta name="description" content="Compare the available navigation positions.">
+
+<title>
+  Navigation Positions Demo | Owl Carousel 3 | 3.1.0
+</title>
+
+
+<!-- Stylesheets -->
+<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,400italic,300italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/docs.theme.min.css">
+
+<!-- Owl Stylesheets -->
+<link rel="stylesheet" href="../assets/owlcarousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="../assets/owlcarousel/assets/owl.theme.default.min.css">
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="../assets/img/owl-logo.png">
+
+<!-- Yeah i know js should not be in header. Its required for demos.-->
+
+<!-- javascript -->
+<script src="../assets/vendors/jquery.min.js"></script>
+<script src="../assets/owlcarousel/owl.carousel.js"></script>
+
+
+
+</head>
+<body>
+<!-- header -->
+<header class="header">
+	<div class="row">
+		<div class="small-8 medium-4 columns">
+			<h3 class="brand"><a href="../index.html">Owl Carousel 3</a></h3>
+		</div>
+		<div class="small-4 medium-8 columns">
+			<a id="toggle-nav" class="right" href="#navigation" aria-label="Toggle navigation" aria-controls="navigation" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</a>
+			<nav id="navigation" class="nav-bar" aria-label="Main navigation">
+				<ul>
+					<li><a href="../index.html">Home</a></li>
+					<li><a href="../docs/started-welcome.html">Docs</a></li>
+					<li class="active"><a href="../demos/demos.html">Demos</a></li>
+					<li><a href="https://github.com/vDyl/OwlCarousel3">GitHub</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+
+<!-- title -->
+<section class="title">
+	<div class="row">
+		<div class="large-12 columns">
+			<h1>Navigation positions</h1>
+		</div>
+	</div>
+</section>
+
+<!--  Demos -->
+<section id="demos">
+	<div class="row">
+		<div class="large-12 columns">
+
+<h3>Bottom navigation</h3>
+<p>The default position places the controls below the carousel.</p>
+
+<div id="nav-position-bottom" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+<h3>Overlay navigation</h3>
+<p>Overlay navigation places the controls at the center-left and center-right edges.</p>
+
+<div id="nav-position-overlay" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+<h3>Outside navigation</h3>
+<p>Outside navigation places the controls beyond the center-left and center-right edges.</p>
+
+<div id="nav-position-outside" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+<h3>Navigation without dots</h3>
+<p>Set <code>dots: false</code> to show arrows without pagination dots.</p>
+
+<div id="nav-without-dots" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+<h3>Setup</h3>
+<p>Enable navigation and choose one of the supported <code>navPosition</code> values.</p>
+<h4>Bottom (default)</h4>
+<p>Use <code>bottom</code>, or omit <code>navPosition</code>, to place the controls below the carousel.</p>
+<pre><code class="language-javascript">$(&#39;.owl-carousel&#39;).owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: &#39;bottom&#39;
+})
+</code></pre>
+<h4>Overlay</h4>
+<p>Use <code>overlay</code> to place the controls at the vertical center of the carousel
+edges.</p>
+<pre><code class="language-javascript">$(&#39;.owl-carousel&#39;).owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: &#39;overlay&#39;
+})
+</code></pre>
+<h4>Outside</h4>
+<p>Use <code>outside</code> to place the controls just beyond the carousel edges. Make sure
+the surrounding layout leaves enough horizontal space for the buttons.</p>
+<pre><code class="language-javascript">$(&#39;.owl-carousel&#39;).owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: &#39;outside&#39;
+})
+</code></pre>
+<h4>Without dots</h4>
+<p>The dots can be disabled with any navigation position:</p>
+<pre><code class="language-javascript">$(&#39;.owl-carousel&#39;).owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: &#39;overlay&#39;,
+	dots: false
+})
+</code></pre>
+<p>The overlay styles are provided by <code>owl.theme.default.css</code> and
+<code>owl.theme.green.css</code>. They use the built-in navigation container. If you set
+<code>navContainer</code>, position that custom container in your own stylesheet instead.</p>
+<p>Customize the control size and inset with CSS custom properties:</p>
+<pre><code class="language-css">.owl-carousel {
+	--owl-nav-size: 48px;
+	--owl-nav-offset: 12px;
+}
+</code></pre>
+<p>Navigation colors can also be styled at runtime. These properties apply to
+every navigation position:</p>
+<pre><code class="language-css">.owl-carousel {
+	--owl-nav-color: #fff;
+	--owl-nav-background: #2d44b6;
+	--owl-nav-color-hover: #fff;
+	--owl-nav-background-hover: #ff3f4d;
+}
+</code></pre>
+<p>Projects compiling the Sass theme can alternatively set
+<code>$owl-nav-color</code>, <code>$owl-nav-background</code>, <code>$owl-nav-color-hover</code>, and
+<code>$owl-nav-background-hover</code> before loading the theme module.</p>
+
+<script>
+$(document).ready(function(){
+	var sharedOptions = {
+		items: 3,
+		loop: true,
+		margin: 10,
+		nav: true,
+		responsive: {
+			0: { items: 1 },
+			600: { items: 3 }
+		}
+	};
+
+	$('#nav-position-bottom').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'bottom'
+	}));
+	$('#nav-position-overlay').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'overlay'
+	}));
+	$('#nav-position-outside').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'outside'
+	}));
+	$('#nav-without-dots').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'overlay',
+		dots: false
+	}));
+})
+</script>
+		</div>
+	</div>
+</section>
+
+<!-- footer -->
+<footer class="footer">
+	<div class="row">
+		<div class="large-12 columns">
+			<h5>
+				<span>Owl Carousel 3</span>
+			</h5>
+		</div>
+	</div>
+</footer>
+
+	<!-- vendors -->
+<script src="../assets/vendors/highlight.js"></script>
+<script src="../assets/js/app.js"></script>
+
+</body>
+</html>

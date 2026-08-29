@@ -216,9 +216,42 @@ QUnit.test('initialization creates navigation controls and pages', function(asse
 	assert.strictEqual(fixture.element.find('.owl-dot').length, 3, 'A dot is created for every page.');
 	assert.strictEqual(plugin._pages.length, 3, 'The page model matches the carousel items.');
 	assert.strictEqual(fixture.element.find('.owl-prev').attr('role'), undefined, 'Previous keeps its native button semantics.');
+	assert.strictEqual(fixture.element.find('.owl-prev').attr('aria-label'), 'Previous', 'Previous has an accessible name.');
+	assert.strictEqual(fixture.element.find('.owl-next').attr('aria-label'), 'Next', 'Next has an accessible name.');
+	assert.strictEqual(fixture.element.find('.owl-nav svg').length, 2, 'Default navigation uses SVG chevrons.');
 	assert.ok(fixture.element.find('.owl-prev').prop('disabled'), 'Unavailable previous navigation is natively disabled.');
 	assert.strictEqual(fixture.element.find('.owl-dot').first().attr('aria-label'), 'Go to slide 1', 'Dots have accessible names.');
 	assert.strictEqual(fixture.element.find('.owl-dot').first().attr('aria-current'), 'true', 'The active dot identifies the current slide.');
+});
+
+QUnit.test('overlay navigation adds and removes its layout class', function(assert) {
+	var fixture = createCarousel(null, { items: 1, nav: true, navPosition: 'overlay' });
+
+	assert.ok(fixture.element.hasClass('owl-nav-overlay'), 'Overlay navigation adds its layout class.');
+	fixture.core.settings.navPosition = 'bottom';
+	fixture.core._plugins.navigation.draw();
+	assert.notOk(fixture.element.hasClass('owl-nav-overlay'), 'Changing the position removes its layout class.');
+	fixture.core.settings.navPosition = 'overlay';
+	fixture.core._plugins.navigation.draw();
+	fixture.element.owlCarousel('destroy');
+	assert.notOk(fixture.element.hasClass('owl-nav-overlay'), 'Destroy removes its layout class.');
+});
+
+QUnit.test('outside navigation uses the outside layout class', function(assert) {
+	var fixture = createCarousel(null, { items: 1, nav: true, navPosition: 'outside' });
+
+	assert.ok(fixture.element.hasClass('owl-nav-outside'), 'Outside navigation adds its layout class.');
+	assert.notOk(fixture.element.hasClass('owl-nav-overlay'), 'Outside navigation does not add the overlay class.');
+	fixture.element.owlCarousel('destroy');
+	assert.notOk(fixture.element.hasClass('owl-nav-outside'), 'Destroy removes the outside layout class.');
+});
+
+QUnit.test('positioned navigation is centered against the stage viewport', function(assert) {
+	var fixture = createCarousel(null, { items: 1, nav: true, navPosition: 'overlay' }),
+		stageHeight = fixture.core.$stage.parent().outerHeight();
+
+	assert.strictEqual(parseFloat(fixture.element.find('.owl-nav').css('top')), stageHeight / 2,
+		'Navigation uses the stage midpoint instead of the full carousel midpoint.');
 });
 
 QUnit.test('destroy restores the core navigation methods', function(assert) {

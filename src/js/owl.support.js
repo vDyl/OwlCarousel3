@@ -1,7 +1,7 @@
 /**
  * Support Plugin
  *
- * @version 3.0.4
+ * @version 3.1.0
  * @license The MIT License (MIT)
  */
 ;(function($, window, document, undefined) {

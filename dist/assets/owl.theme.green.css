@@ -1,7 +1,109 @@
-/*! Owl Carousel v3.0.4 | MIT License */
+/*! Owl Carousel v3.1.0 | MIT License */
 /*
  * 	Green theme - Owl Carousel CSS File
  */
+.owl-theme.owl-nav-overlay .owl-nav {
+  left: 0;
+  margin-top: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 2;
+}
+.owl-theme.owl-nav-overlay .owl-nav .owl-prev,
+.owl-theme.owl-nav-overlay .owl-nav .owl-next {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 44px;
+  height: var(--owl-nav-size, 44px);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0;
+  min-width: 44px;
+  min-width: var(--owl-nav-size, 44px);
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.owl-theme.owl-nav-overlay .owl-nav .owl-prev {
+  left: 10px;
+  left: var(--owl-nav-offset, 10px);
+}
+.owl-theme.owl-nav-overlay .owl-nav .owl-next {
+  right: 10px;
+  right: var(--owl-nav-offset, 10px);
+}
+.owl-theme.owl-nav-overlay.owl-rtl .owl-nav .owl-prev {
+  left: auto;
+  right: 10px;
+  right: var(--owl-nav-offset, 10px);
+}
+.owl-theme.owl-nav-overlay.owl-rtl .owl-nav .owl-next {
+  left: 10px;
+  left: var(--owl-nav-offset, 10px);
+  right: auto;
+}
+.owl-theme.owl-nav-outside .owl-nav {
+  left: 0;
+  margin-top: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 2;
+}
+.owl-theme.owl-nav-outside .owl-nav .owl-prev,
+.owl-theme.owl-nav-outside .owl-nav .owl-next {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 44px;
+  height: var(--owl-nav-size, 44px);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0;
+  min-width: 44px;
+  min-width: var(--owl-nav-size, 44px);
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.owl-theme.owl-nav-outside .owl-nav .owl-prev {
+  left: -54px;
+  left: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+}
+.owl-theme.owl-nav-outside .owl-nav .owl-next {
+  right: -54px;
+  right: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+}
+.owl-theme.owl-nav-outside.owl-rtl .owl-nav .owl-prev {
+  left: auto;
+  right: -54px;
+  right: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+}
+.owl-theme.owl-nav-outside.owl-rtl .owl-nav .owl-next {
+  left: -54px;
+  left: calc(-1 * (var(--owl-nav-size, 44px) + var(--owl-nav-offset, 10px)));
+  right: auto;
+}
 .owl-theme .owl-nav {
   margin-top: 10px;
   text-align: center;
@@ -9,18 +111,35 @@
 }
 .owl-theme .owl-nav [class*=owl-] {
   color: #FFF;
-  font-size: 14px;
+  color: var(--owl-nav-color, #FFF);
+  font-size: 24px;
   margin: 5px;
   padding: 4px 7px;
   background: #D6D6D6;
+  background: var(--owl-nav-background, #D6D6D6);
   display: inline-block;
   cursor: pointer;
   border-radius: 3px;
 }
 .owl-theme .owl-nav [class*=owl-]:hover {
   background: #4DC7A0;
+  background: var(--owl-nav-background-hover, #4DC7A0);
   color: #FFF;
+  color: var(--owl-nav-color-hover, #FFF);
   text-decoration: none;
+}
+.owl-theme .owl-nav button[class*=owl-] {
+  font-size: 24px;
+}
+.owl-theme .owl-nav svg {
+  display: block;
+  fill: none;
+  height: 1em;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+  width: 1em;
 }
 .owl-theme .owl-nav .disabled {
   opacity: 0.5;

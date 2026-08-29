@@ -1,0 +1,179 @@
+---
+title: Navigation Positions Demo
+subTitle: Navigation positions
+nav: demos
+description: Compare the available navigation positions.
+sort: 9
+
+tags:
+- demo
+- core
+---
+
+<h3>Bottom navigation</h3>
+<p>The default position places the controls below the carousel.</p>
+
+<div id="nav-position-bottom" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+<h3>Overlay navigation</h3>
+<p>Overlay navigation places the controls at the center-left and center-right edges.</p>
+
+<div id="nav-position-overlay" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+<h3>Outside navigation</h3>
+<p>Outside navigation places the controls beyond the center-left and center-right edges.</p>
+
+<div id="nav-position-outside" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+<h3>Navigation without dots</h3>
+<p>Set <code>dots: false</code> to show arrows without pagination dots.</p>
+
+<div id="nav-without-dots" class="owl-carousel owl-theme">
+	<div class="item"><h4>1</h4></div>
+	<div class="item"><h4>2</h4></div>
+	<div class="item"><h4>3</h4></div>
+	<div class="item"><h4>4</h4></div>
+	<div class="item"><h4>5</h4></div>
+	<div class="item"><h4>6</h4></div>
+</div>
+
+{{#markdown }}
+### Setup
+
+Enable navigation and choose one of the supported `navPosition` values.
+
+#### Bottom (default)
+
+Use `bottom`, or omit `navPosition`, to place the controls below the carousel.
+
+```javascript
+$('.owl-carousel').owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: 'bottom'
+})
+```
+
+#### Overlay
+
+Use `overlay` to place the controls at the vertical center of the carousel
+edges.
+
+```javascript
+$('.owl-carousel').owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: 'overlay'
+})
+```
+
+#### Outside
+
+Use `outside` to place the controls just beyond the carousel edges. Make sure
+the surrounding layout leaves enough horizontal space for the buttons.
+
+```javascript
+$('.owl-carousel').owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: 'outside'
+})
+```
+
+#### Without dots
+
+The dots can be disabled with any navigation position:
+
+```javascript
+$('.owl-carousel').owlCarousel({
+	items: 3,
+	loop: true,
+	nav: true,
+	navPosition: 'overlay',
+	dots: false
+})
+```
+
+The overlay styles are provided by `owl.theme.default.css` and
+`owl.theme.green.css`. They use the built-in navigation container. If you set
+`navContainer`, position that custom container in your own stylesheet instead.
+
+Customize the control size and inset with CSS custom properties:
+
+```css
+.owl-carousel {
+	--owl-nav-size: 48px;
+	--owl-nav-offset: 12px;
+}
+```
+
+Navigation colors can also be styled at runtime. These properties apply to
+every navigation position:
+
+```css
+.owl-carousel {
+	--owl-nav-color: #fff;
+	--owl-nav-background: #2d44b6;
+	--owl-nav-color-hover: #fff;
+	--owl-nav-background-hover: #ff3f4d;
+}
+```
+
+Projects compiling the Sass theme can alternatively set
+`$owl-nav-color`, `$owl-nav-background`, `$owl-nav-color-hover`, and
+`$owl-nav-background-hover` before loading the theme module.
+
+{{/markdown }}
+
+<script>
+$(document).ready(function(){
+	var sharedOptions = {
+		items: 3,
+		loop: true,
+		margin: 10,
+		nav: true,
+		responsive: {
+			0: { items: 1 },
+			600: { items: 3 }
+		}
+	};
+
+	$('#nav-position-bottom').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'bottom'
+	}));
+	$('#nav-position-overlay').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'overlay'
+	}));
+	$('#nav-position-outside').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'outside'
+	}));
+	$('#nav-without-dots').owlCarousel($.extend({}, sharedOptions, {
+		navPosition: 'overlay',
+		dots: false
+	}));
+})
+</script>

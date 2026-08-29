@@ -104,8 +104,20 @@
   {
     "name":     "navText",
     "type":     "Array",
-    "Default":  "Previous and Next arrow markup",
-    "desc":     "HTML allowed."
+    "Default":  "Previous and next SVG chevrons",
+    "desc":     "HTML used inside the directional navigation buttons."
+  },
+  {
+    "name":     "navLabels",
+    "type":     "Array",
+    "Default":  "Previous and Next",
+    "desc":     "Accessible labels for the previous and next navigation buttons."
+  },
+  {
+    "name":     "navPosition",
+    "type":     "String",
+    "Default":  "bottom",
+    "desc":     "Navigation placement: 'bottom' below the carousel, 'overlay' inside its center-left and center-right edges, or 'outside' beyond those edges. Overlay and outside positions require an Owl theme and the built-in navigation container."
   },
   {
     "name":     "navElement",

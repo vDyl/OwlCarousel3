@@ -18,8 +18,9 @@ browsers with `npx playwright install` and run `npm run test:browsers`.
 
 `npm run build` removes and recreates `dist/`. The build program:
 
-1. Bundles the source files in the explicit order in `build/entry.js` using
-   esbuild, producing readable and minified JavaScript bundles.
+1. Concatenates the source files in the explicit order in `build/entry.js` for
+   the readable JavaScript distribution, then uses esbuild to produce the
+   minified bundle.
 2. Compiles the three SCSS entry points with Dart Sass. Owl Carousel's Sass
    sources use the module system (`@use` and explicit configuration), so this
    step completes without legacy Sass `@import` deprecation warnings.
